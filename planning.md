@@ -7,3 +7,7 @@
     - As a User, I want my ToDo list to not be overwhelming at sight (User-friendly experience) 
 
 ## ER DIAGRAM
+
+
+
+## SKELETON
