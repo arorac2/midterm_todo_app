@@ -1,24 +1,49 @@
-// const loginForm = document.getElementById('loginForm');
-// loginForm.addEventListener('submit', performLogin)
+let userLoggedIn = false;
 
-function performLogin(formData) {
-return new Promise((resolve, reject) => {
-    $.ajax({
-        url: "/login",
-        method: "POST",
-        data: formData,
-        success: (data) => {
-         resolve(data);
-        },
-        
-        error: (error) => {
-          console.log("Login failed:", error);
-          reject(error);
-        },
-      });
-})
-  
+function showRegistrationSuccessMessage() {
+  const successMessage = document.createElement("div");
+  successMessage.textContent =
+    "Registration successful! Please login to continue.";
+  successMessage.classList.add("success-message");
+
+  // Append the success message to a specific location in your HTML
+  const registrationFormContainer = document.getElementById(
+    "registration-form-container"
+  );
+  registrationFormContainer.appendChild(successMessage);
 }
 
-  
-  
+function performLogin(formData) {
+  return new Promise((resolve, reject) => {
+    $.ajax({
+      url: "/login",
+      method: "POST",
+      data: formData,
+      success: (data) => {
+        resolve(data);
+      },
+
+      error: (error) => {
+        console.log("Login failed:", error);
+        reject(error);
+      },
+    });
+  });
+}
+
+function logout() {
+  // Send an HTTP POST request to the logout route on your server
+  $.ajax({
+    url: "/logout",
+    method: "POST",
+    success: function (response) {
+      // Handle successful logout
+      console.log("Logged out successfully");
+      // Perform any additional actions (e.g., redirect to login page)
+    },
+    error: function (xhr, status, error) {
+      // Handle logout error
+      console.error("Logout error:", error);
+    },
+  });
+}

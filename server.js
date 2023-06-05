@@ -111,6 +111,11 @@ app.post("/login", (req, res) => {
   console.log("Login successful:", user);
   res.json({ message: "Login successful", user });
 });
+
+app.post("/logout", (req, res) => {
+  req.session = null;
+});
+
 app.get("/openai", (req, res) => {
   res.render("openai");
 });

@@ -167,6 +167,14 @@ $(document).ready(() => {
 
   });
 
+  $('#registrationForm').submit(function(event) {
+    event.preventDefault();  
+    showRegistrationSuccessMessage();
+  });
+
+  $('#logoutButton').on('click', logout);
+
+
   $('#loginForm').submit(function(event) {
     event.preventDefault();
 

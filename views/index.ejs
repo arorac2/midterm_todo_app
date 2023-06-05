@@ -1,172 +1,163 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <title>HomePage</title>
 
-<head>
-  <title>HomePage</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" />
+    <link rel="stylesheet" href="/vendor/border-box.css" />
+    <link rel="stylesheet" href="/styles/main.css" />
+    <link rel="stylesheet" href="/styles/layout.css" />
 
-  <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" />
-  <link rel="stylesheet" href="/vendor/border-box.css" />
-  <link rel="stylesheet" href="/styles/main.css" />
-  <link rel="stylesheet" href="/styles/layout.css" />
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Noto+Serif+JP"
+    />
 
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Serif+JP" />
+    <script src="/vendor/jquery-3.0.0.js"></script>
+    <script defer src="/scripts/app.js"></script>
+  </head>
 
-  <script src="/vendor/jquery-3.0.0.js"></script>
-  <script defer src="/scripts/app.js"></script>
-</head>
-
-<header>
-  <nav>
-    <div class="logo-container">
-      <a href="/">
-        <img src="./images/TaskMasterLogo.png" alt="Logo" />
-      </a>
-    </div>
-    <div class="button-container">
-      <button href="/login" class="button">Login</button>
-    </div>
-    <div class="category-container">
-      <ul>
-        <li><a href="/category1">Watch</a></li>
-        <li><a href="/category2">Eat</a></li>
-        <li><a href="/category3">Read</a></li>
-        <li><a href="/category3">Buy</a></li>
-      </ul>
-    </div>
-  </nav>
-</header>
-
-<body>
-
-  <main>
-    <div id="modal" class="modal">
-      <div class="modal-content">
-        <h2>Login or Register</h2>
-        <form id="loginForm" method="POST">
-          <label for="email">Email:</label>
-          <input type="email" id="loginEmail" name="email" /> <!-- Add name attribute -->
-          <label for="password">Password:</label>
-          <input type="password" id="loginPassword" name="password" /> <!-- Add name attribute -->
-          <button type="submit">Login</button>
-        </form>
-
-        <button id="closeButton">Close</button>
+  <header>
+    <nav>
+      <div class="logo-container">
+        <a href="/">
+          <img src="./images/TaskMasterLogo.png" alt="Logo" />
+        </a>
       </div>
-    </div>
-
-    <div id="add-item">
-      <form action="/api/items/" method="post" id="item-form">
-        <div class="form-content">
-          <input type="text" name="item" />
-        </div>
-      </form>
-      <div id="add-result">
-
-
-
-<div class="container">
-  <form id="userInteraction">
-    <ul class="flex-outer">
-      <li>
-        <label for="item-title">Item Name</label>
-        <input type="text" id="item-title" name="title">
-      </li>
-      <li>
-        <label for="message">Description</label>
-        <textarea rows="6" id="message" placeholder="Enter your description here" name="description"></textarea>
-      </li>
-      <li>
-        <p>Categories</p>
-        <ul class="flex-inner">
-          <li>
-            <input type="checkbox" id="to-eat" name="to-eat">
-            <label for="to-eat">To Eat</label>
-          </li>
-          <li>
-            <input type="checkbox" id="to-watch" name="to-watch">
-            <label for="to-watch">To Watch</label>
-          </li>
-          <li>
-            <input type="checkbox" id="to-buy" name="to-buy">
-            <label for="to-buy">To Buy</label>
-          </li>
-          <li>
-            <input type="checkbox" id="to-read" name="to-read">
-            <label for="to-read">To Read</label>
-          </li>
+      <div class="button-container">
+        <button href="/login" class="button">Login</button>
+        <button id="logoutButton">Logout</button>
+      </div>
+      <div class="category-container">
+        <ul>
+          <li><a href="/category1">Watch</a></li>
+          <li><a href="/category2">Eat</a></li>
+          <li><a href="/category3">Read</a></li>
+          <li><a href="/category3">Buy</a></li>
         </ul>
-      </li>
-      <li>
-        <button type="submit">Submit</button>
-      </li>
-    </ul>
-  </form>
-</div>
-
-
-
       </div>
-    </div>
+    </nav>
+  </header>
 
-    <div id="registration-form-container">
-      <h1>Registration</h1>
-      <form id="registrationForm" method="POST" action="/register">
-        <div>
-          <label for="name">Name:</label>
-          <input type="text" id="name" name="name" required>
-        </div>
-        <div>
-          <label for="email">Email:</label>
-          <input type="email" id="email" name="email" required>
-        </div>
-        <div>
-          <label for="password">Password:</label>
-          <input type="password" id="password" name="password" required>
-        </div>
-        <button type="submit">Register</button>
-      </form>
-      <div id="welcomeMessage">
+  <body>
+    <main>
+      <div id="modal" class="modal">
+        <div class="modal-content">
+          <h2>Login</h2>
+          <form id="loginForm" method="POST">
+            <label for="email">Email:</label>
+            <input type="email" id="loginEmail" name="email" />
+            <!-- Add name attribute -->
+            <label for="password">Password:</label>
+            <input type="password" id="loginPassword" name="password" />
+            <!-- Add name attribute -->
+            <button type="submit">Login</button>
+          </form>
+          <button id="closeButton">Close</button>
 
+          <div id="registration-form-container">
+            <h1>Register</h1>
+            <form id="registrationForm" method="POST" action="/register">
+              <div>
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required />
+              </div>
+              <div>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required />
+              </div>
+              <div>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required />
+              </div>
+              <button type="submit">Register</button>
+            </form>
+            <div id="welcomeMessage"></div>
+          </div>
+        </div>
       </div>
-    </div>
 
-  </main>
+      <div id="add-item">
+        <form action="/api/items/" method="post" id="item-form">
+          <div class="form-content">
+            <input type="text" name="item" />
+          </div>
+        </form>
+        <div id="add-result">
+          <div class="container">
+            <form id="userInteraction">
+              <ul class="flex-outer">
+                <li>
+                  <label for="item-title">Item Name</label>
+                  <input type="text" id="item-title" name="title" />
+                </li>
+                <li>
+                  <label for="message">Description</label>
+                  <textarea
+                    rows="6"
+                    id="message"
+                    placeholder="Enter your description here"
+                    name="description"
+                  ></textarea>
+                </li>
+                <li>
+                  <p>Categories</p>
+                  <ul class="flex-inner">
+                    <li>
+                      <input type="checkbox" id="to-eat" name="to-eat" />
+                      <label for="to-eat">To Eat</label>
+                    </li>
+                    <li>
+                      <input type="checkbox" id="to-watch" name="to-watch" />
+                      <label for="to-watch">To Watch</label>
+                    </li>
+                    <li>
+                      <input type="checkbox" id="to-buy" name="to-buy" />
+                      <label for="to-buy">To Buy</label>
+                    </li>
+                    <li>
+                      <input type="checkbox" id="to-read" name="to-read" />
+                      <label for="to-read">To Read</label>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <button type="submit">Submit</button>
+                </li>
+              </ul>
+            </form>
+          </div>
+        </div>
+      </div>
+    </main>
 
-  <textarea class="textarea1" name="text" id="inputData"></textarea>
+    <textarea class="textarea1" name="text" id="inputData"></textarea>
 
-  <table>
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Title</th>
-        <th>Description</th>
-        <th>Created_at</th>
-        <th>Updated_at</th>
-        <th>Category</th>
-        <th>User</th>
-      </tr>
-    </thead>
-    <tbody>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Title</th>
+          <th>Description</th>
+          <th>Created_at</th>
+          <th>Updated_at</th>
+          <th>Category</th>
+          <th>User</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
 
-    </tbody>
-  </table>
-
-
-
-
-
-  <script src="/vendor/jquery-3.0.0.js"></script>
-  <script src="/scripts/app.js"></script>
-  <script src="/scripts/register.js"></script>
-  <script src="/scripts/login.js"></script>
-
-</body>
-
+    <script src="/vendor/jquery-3.0.0.js"></script>
+    <script src="/scripts/app.js"></script>
+    <script src="/scripts/register.js"></script>
+    <script src="/scripts/login.js"></script>
+  </body>
 </html>
