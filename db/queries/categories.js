@@ -43,3 +43,7 @@ const updateCategory = (id, title) => {
 
   return db.query(query, [title, id]);
 };
+
+
+module.exports = {getCategories, getCategoryById, deleteCategory, updateCategory};
+
