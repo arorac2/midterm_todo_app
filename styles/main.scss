@@ -1,11 +1,5 @@
  body {
-//   display: flex;
-//   flex-direction: column;
-//   justify-content: center;
-//   align-items: center;
-//   min-height: 100vh;
-//rgb(214, 241, 236)
-   background: rgb(207, 206, 195);
+   background: rgb(204, 233, 229);
 }
 
 .logo-container {
@@ -25,3 +19,65 @@
 .logo {
   align-self: flex-start;
 }
+
+.button-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding-top: 1em;
+  padding-right: 0.3em;
+}
+
+.button-container button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #ffffff;
+  color: #000000;
+  text-decoration: none;
+  border-radius: 5px;
+  margin-left: 10px;
+  font-family: "Noto Serif JP", serif;
+  font-weight: 700;
+}
+
+.button-container button:hover {
+  background-color: #000;
+  color: #fff
+}
+
+.category-container {
+  margin-left: 12em; /* Pushes the category container to the right */
+  margin-right: auto; /* Pushes the category container to the left */
+  text-align: center; 
+}
+
+.category-container ul {
+  list-style: none; /* Remove bullet points */
+  margin: 0;
+  padding: 0;
+  display: inline-flex; /* Display the categories in a flex container */
+}
+
+
+.category-container ul li a {
+  text-decoration: none;
+  color: #000;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-family: "Noto Serif JP", serif;
+  font-weight: 800;
+  
+}
+
+.category-container ul li a:hover {
+  background-color: #000;
+  color: #fff;
+}
+
+.category-container ul li {
+  margin-right: 12em; /* Increase the margin-right value for more spacing */
+}
+
