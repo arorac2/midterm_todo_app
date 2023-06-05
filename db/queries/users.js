@@ -47,6 +47,24 @@ const deleteUser = id => {
 
 };
 
+// Add user
+const addUser = ( name, email, password ) => {
+  const query = `
+    INSERT INTO users (name, email, password)
+    VALUES ($1, $2, $3)
+    RETURNING *`;
+
+  const values = [name, email, password];
+
+  return db.query(query, values)
+    .then(data => {
+      return data.rows[0];
+    })
+    .catch(err => {
+      console.log(err.message);
+    });
+};
+
 //update user by ID. expects object. This should be safe as no user input is supplied.
 const updateUser = ({ id, name, email, password }) => {
 
@@ -87,5 +105,4 @@ const updateUser = ({ id, name, email, password }) => {
 };
 
 
-
-module.exports = { getUsers, getUsersByID, getUsersByEmail, deleteUser, updateUser };
+module.exports = { getUsers, getUsersByID, getUsersByEmail, deleteUser, updateUser, addUser };
