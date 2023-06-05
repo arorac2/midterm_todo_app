@@ -44,10 +44,10 @@ const fetchItems = () => {
     url: '/api/items',
     method: 'GET',
     dataType: 'json',
-    success: function (response) {
+    success: function(response) {
       addToTable(response);
     },
-    error: function (xhr, status, error) {
+    error: function(xhr, status, error) {
       console.error('Error occurred:', error);
     }
   });
@@ -87,6 +87,7 @@ const aiForm = (formData) => {
   }).fail((xhr, status, error) => {
     if (error === 'abort') {
       console.log('Request aborted');
+      $('#add-result').text('Request Timed Out. Please try again');
     } else {
       console.error("Error occurred in POST /api/items: ", error);
       clearInterval(intervalId);
@@ -97,7 +98,7 @@ const aiForm = (formData) => {
   // After five seconds, abort the request
   setTimeout(() => {
     ajaxRequest.abort();
-  }, 5000);
+  }, 10000);
 };
 
 $(document).ready(() => {
