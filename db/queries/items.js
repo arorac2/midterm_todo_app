@@ -58,7 +58,7 @@ const getItemsByUserId = userId => {
 };
 
 //add item
-const addItem = (title, description, completed, userId, important) => {
+const addItem = (title, userId, categoryId, description = null, completed = null, important = false) => {
   const query = `
     INSERT INTO items (title, description, completed, user_id, important)
     VALUES ($1, $2, $3, $4, $5)
@@ -66,12 +66,26 @@ const addItem = (title, description, completed, userId, important) => {
 
   return db.query(query, [title, description, completed, userId, important])
     .then(data => {
-      return data.rows[0];
+      const item = data.rows[0];
+      const itemCategoryIdQuery = `
+        INSERT INTO items_categories (item_id, category_id)
+        VALUES ($1, $2)`;
+
+      return db.query(itemCategoryIdQuery, [item.id, categoryId])
+        .then(() => {
+          return {title: item.title, categoryId: categoryId};
+        })
+        .catch(err => {
+          console.log(err.message);
+          return {item};
+        });
     })
     .catch((err) => {
       console.log(err.message);
     });
 };
+
+
 
 //delete item
 const deleteItem = id => {

@@ -161,6 +161,7 @@
   display: flex;
   justify-content: center;
   margin: 20px auto;
+  flex-direction: column;
 }
 
 #item-form{
@@ -172,7 +173,7 @@
 .form-content {
   display: flex;
   width: 80%;
-  margin: 20px auto;
+  margin: 0 auto;
 
 }
 .form-content input[type=text]{
@@ -194,24 +195,27 @@
   outline:none;
 }
 
-
-
-.login-container {
-  flex: 1;
+#add-result {
   display: flex;
-  flex-direction: column;
   justify-content: center;
-  align-items: center;
+  width: 80%;
+  margin: 0 auto;
 }
 
-.register-container {
-  flex: 1;
+/* table */
+table {
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
+  // position: absolute;
+  width: 80%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.register-container h2 {
-  margin-top: 0;
+th, td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
 }
