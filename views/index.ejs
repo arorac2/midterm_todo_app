@@ -51,11 +51,12 @@
         <h2>Login or Register</h2>
         <form id="loginForm" method="POST" action="/login">
           <label for="email">Email:</label>
-          <input type="email" id="loginEmail" name="email" /> <!-- Check the name attribute -->
+          <input type="email" id="loginEmail" name="email" /> <!-- Add name attribute -->
           <label for="password">Password:</label>
-          <input type="password" id="loginPassword" name="password" />
+          <input type="password" id="loginPassword" name="password" /> <!-- Add name attribute -->
           <button type="submit">Login</button>
         </form>
+        
         <button id="closeButton">Close</button>
       </div>
     </div>
@@ -86,7 +87,11 @@
         </div>
         <button type="submit">Register</button>
       </form>
+      <div id="welcomeMessage">
+        
+      </div>
     </div>
+
   </main>
 
   <table>

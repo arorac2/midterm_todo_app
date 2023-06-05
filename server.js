@@ -2,11 +2,14 @@
 require("dotenv").config();
 
 const { chat } = require("./lib/openAI");
+const bcrypt = require("bcrypt");
 
 // Web server config
 const sassMiddleware = require("./lib/sass-middleware");
 const express = require("express");
 const morgan = require("morgan");
+
+const { getUserByEmail } = require("./helpers");
 
 const PORT = process.env.PORT || 8080;
 const app = express();
@@ -31,19 +34,19 @@ app.use(express.static("public"));
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
 
-const userApiRoutes = require('./routes/users-api');
-const itemApiRoutes = require('./routes/items-api');
-const categoryApiRoutes = require('./routes/categories-api');
-const usersRoutes = require('./routes/users');
+const userApiRoutes = require("./routes/users-api");
+const itemApiRoutes = require("./routes/items-api");
+const categoryApiRoutes = require("./routes/categories-api");
+const usersRoutes = require("./routes/users");
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 // Note: Endpoints that return data (eg. JSON) usually start with `/api`
 
-app.use('/api/users', userApiRoutes);
-app.use('/api/items', itemApiRoutes);
-app.use('/api/categories', categoryApiRoutes);
-app.use('/users', usersRoutes);
+app.use("/api/users", userApiRoutes);
+app.use("/api/items", itemApiRoutes);
+app.use("/api/categories", categoryApiRoutes);
+app.use("/users", usersRoutes);
 // Note: mount other resources here, using the same pattern above
 
 // Home page
@@ -67,10 +70,11 @@ app.post("/register", (req, res) => {
     if (!name || !email || !password) {
       throw new Error("Missing required fields");
     }
+    const hashedPassword = bcrypt.hashSync(password, 10); // Hash the password
     const newUser = {
       name,
       email,
-      password,
+      password: hashedPassword, // Store the hashed password
     };
     users.push(newUser);
     console.log("Updated users: ", users);
@@ -81,6 +85,30 @@ app.post("/register", (req, res) => {
   }
 });
 
+app.get("/login", (req, res) => {
+  const userId = req.session.user_id;
+  if (userId) {
+    return;
+  }
+  const templateVars = {
+    username: null,
+  };
+  res.render("login", templateVars);
+});
+
+app.post("/login", (req, res) => {
+  const { email, password } = req.body;
+  const user = getUserByEmail(email, users);
+
+  if (!user || !bcrypt.compareSync(password, user.password)) {
+    console.log("Invalid email or password:", user);
+    res.status(403).send("Invalid email or password");
+    return;
+  }
+
+  console.log("Login successful:", user);
+  res.json({ message: "Login successful", user });
+});
 app.get("/openai", (req, res) => {
   res.render("openai");
 });
