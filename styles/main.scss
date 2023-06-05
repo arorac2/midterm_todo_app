@@ -51,7 +51,7 @@
 .category-container {
   margin-left: 12em; /* Pushes the category container to the right */
   margin-right: auto; /* Pushes the category container to the left */
-  text-align: center; 
+  text-align: center;
 }
 
 .category-container ul {
@@ -69,7 +69,7 @@
   border-radius: 5px;
   font-family: "Noto Serif JP", serif;
   font-weight: 800;
-  
+
 }
 
 .category-container ul li a:hover {
@@ -148,9 +148,51 @@
   color: #fff;
 }
 
+<<<<<<< HEAD
 .modal-content h2 {
   font-family: "Noto Serif JP", serif;
   font-weight: 800;
 
 }
 
+=======
+
+/* Submit item textbox area */
+#add-item{
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  margin: 20px auto;
+}
+
+#item-form{
+  display: flex;
+  width: 80%;
+  margin: 20px auto;
+}
+
+.form-content {
+  display: flex;
+  width: 80%;
+  margin: 20px auto;
+
+}
+.form-content input[type=text]{
+  padding: 10px;
+  font-size: 16px;
+  border-width: 1px;
+  border-color: #CCCCCC;
+  background-color: #FFFFFF;
+  color: #000000;
+  border-style: ridge;
+  border-radius: 30px;
+  box-shadow: 0px 0px 15px rgba(66,66,66,.45);
+  display: flex;
+  margin: 20px auto;
+  width: 80%;
+}
+
+.form-content input[type=text]:focus{
+  outline:none;
+}
+>>>>>>> 1af977ace29b87438bff19dbb2f471822595c590
