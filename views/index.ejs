@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>Home Page</title>
+  <title>HomePage</title>
 
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -44,43 +44,57 @@
 </header>
 
 <body>
-  <div id="modal" class="modal">
-    <div class="modal-content">
-      <h2>Login or Register</h2>
-      <form id="loginForm">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" />
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" />
-        <button type="submit">Login</button>
-      </form>
-      <button id="closeButton">Close</button>
-      
-      <div id="registerContainer">
-        <label for="username">Name:</label>
-        <input type="text" id="username" name="username" />
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" />
-        <label for="password">Email:</label>
-        <input type="email" id="email" name="email" />
-        <button type="submit">Register</button>
-      </div> 
-    </div>
-  </div>
-
-  <div id="add-item">
-    <form action="/api/items/" method="post" id="item-form">
-      <div class="form-content">
-        <input type="text" name="item"></textarea>
-        <div class="button-container">
-          <!-- <button type="submit">Submit</button> -->
-        </div>
+  <main>
+    <div id="modal" class="modal">
+      <div class="modal-content">
+        <h2>Login or Register</h2>
+        <form id="loginForm" method="POST" action="/login">
+          <label for="email">Email:</label>
+          <input type="email" id="loginEmail" name="email" /> <!-- Check the name attribute -->
+          <label for="password">Password:</label>
+          <input type="password" id="loginPassword" name="password" />
+          <button type="submit">Login</button>
+        </form>
+        <button id="closeButton">Close</button>
       </div>
-    </form>
-  </div>
+    </div>
+
+    <div id="add-item">
+      <form action="/api/items/" method="post" id="item-form">
+        <div class="form-content">
+          <input type="text" name="item"></textarea>
+          <div class="button-container">
+            <!-- <button type="submit">Submit</button> -->
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div id="registration-form-container">
+      <h1>Registration</h1>
+      <form id="registrationForm" method="POST" action="/register">
+        <div>
+          <label for="name">Name:</label>
+          <input type="text" id="name" name="name" required>
+        </div>
+        <div>
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+        <div>
+          <label for="password">Password:</label>
+          <input type="password" id="password" name="password" required>
+        </div>
+        <button type="submit">Register</button>
+      </form>
+    </div>
+  </main>
 
   <script src="/vendor/jquery-3.0.0.js"></script>
   <script src="/scripts/app.js"></script>
+  <script src="/scripts/register.js"></script>
+  <script src="/scripts/login.js"></script>
+
 </body>
 
 </html>

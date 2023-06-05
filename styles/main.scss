@@ -100,6 +100,7 @@
   padding: 20px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Add shadow */
   border: 2px solid #000; /* Add border */
+  display: flex;
 }
 
 
@@ -191,4 +192,26 @@
 
 .form-content input[type=text]:focus{
   outline:none;
+}
+
+
+
+.login-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.register-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.register-container h2 {
+  margin-top: 0;
 }
