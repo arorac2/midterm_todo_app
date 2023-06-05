@@ -116,4 +116,20 @@ $(document).ready(() => {
     aiForm(formData);
   });
 
+  $('#loginForm').submit(function(event) {
+    event.preventDefault();
+
+    const $form = $(this);
+    const formData = $form.serialize();
+    
+   
+    performLogin(formData).then(result => {
+      const welcomeMessage = $("#welcomeMessage");
+      welcomeMessage.text(`Welcome, ${result.user.name}!`);
+    });
+  });
+
 });
+
+
+
