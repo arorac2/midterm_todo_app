@@ -41,7 +41,10 @@ const updateCategory = (id, title) => {
     WHERE id = $2
     RETURNING *`;
 
-  return db.query(query, [title, id]);
+  return db.query(query, [title, id])
+    .catch((err) => {
+      console.log(err.message);
+    });
 };
 
 
