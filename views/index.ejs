@@ -22,6 +22,7 @@
   <script src="/vendor/jquery-3.0.0.js"></script>
   <script defer src="/scripts/app.js"></script>
 </head>
+
 <header>
   <nav>
     <div class="logo-container">
@@ -44,7 +45,23 @@
   </nav>
 </header>
 <body>
-  
-</body>
+ 
 
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <form id="loginForm">
+        <!-- Add your login form fields here -->
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password">
+        <button type="submit">Login</button>
+      </form>
+      <button id="closeButton">Close</button>
+    </div>
+  </div>
+
+  <script src="/vendor/jquery-3.0.0.js"></script>
+  <script src="/scripts/app.js"></script>
+</body>
 </html>
