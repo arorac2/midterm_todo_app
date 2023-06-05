@@ -1,67 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <title>Home Page</title>
 
-<head>
-  <title>Home Page</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <meta charset="UTF-8" >
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" >
+    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" />
+    <link rel="stylesheet" href="/vendor/border-box.css" />
+    <link rel="stylesheet" href="/styles/main.css" />
+    <link rel="stylesheet" href="/styles/layout.css" />
 
-  <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" />
-  <link rel="stylesheet" href="/vendor/border-box.css" />
-  <link rel="stylesheet" href="/styles/main.css" />
-  <link rel="stylesheet" href="/styles/layout.css" />
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Noto+Serif+JP"
+    />
 
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Serif+JP">
+    <script src="/vendor/jquery-3.0.0.js"></script>
+    <script defer src="/scripts/app.js"></script>
+  </head>
 
- 
-  <script src="/vendor/jquery-3.0.0.js"></script>
-  <script defer src="/scripts/app.js"></script>
-</head>
-
-<header>
-  <nav>
-    <div class="logo-container">
-      <a href="/">
-        <img src="./images/TaskMasterLogo.png" alt="Logo" />
-      </a>
+  <header>
+    <nav>
+      <div class="logo-container">
+        <a href="/">
+          <img src="./images/TaskMasterLogo.png" alt="Logo" />
+        </a>
+      </div>
+      <div class="button-container">
+        <button href="/login" class="button">Login</button>
+      </div>
+      <div class="category-container">
+        <ul>
+          <li><a href="/category1">Watch</a></li>
+          <li><a href="/category2">Eat</a></li>
+          <li><a href="/category3">Read</a></li>
+          <li><a href="/category3">Buy</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+  <body>
+    <div id="modal" class="modal">
+      <div class="modal-content">
+        <h2>Login or Register</h2>
+        <form id="loginForm">
+          <label for="username">Username:</label>
+          <input type="text" id="username" name="username" />
+          <label for="password">Password:</label>
+          <input type="password" id="password" name="password" />
+          <button type="submit">Login</button>
+        </form>
+        <button id="closeButton">Close</button>
+        <div id="registerContainer">
+          <label for="username">Name:</label>
+          <input type="text" id="username" name="username" />
+          <label for="password">Password:</label>
+          <input type="password" id="password" name="password" />
+          <label for="password">Email:</label>
+          <input type="email" id="email" name="email" />
+          <button type="submit">Register</button>
+        </div> 
+      </div>
     </div>
-    <div class="button-container">
-      <button href="/login" class="button">Login</button>
-    </div>
-    <div class="category-container">
-      <ul>
-        <li><a href="/category1">Watch</a></li>
-        <li><a href="/category2">Eat</a></li>
-        <li><a href="/category3">Read</a></li>
-        <li><a href="/category3">Buy</a></li>
-        <!-- Add more categories as needed -->
-      </ul>
-    </div>
-  </nav>
-</header>
-<body>
- 
 
-  <div id="modal" class="modal">
-    <div class="modal-content">
-      <form id="loginForm">
-        <!-- Add your login form fields here -->
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username">
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password">
-        <button type="submit">Login</button>
-      </form>
-      <button id="closeButton">Close</button>
-    </div>
-  </div>
-
-  <script src="/vendor/jquery-3.0.0.js"></script>
-  <script src="/scripts/app.js"></script>
-</body>
+    <script src="/vendor/jquery-3.0.0.js"></script>
+    <script src="/scripts/app.js"></script>
+  </body>
 </html>
