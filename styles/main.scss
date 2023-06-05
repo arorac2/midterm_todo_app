@@ -94,6 +94,9 @@
 }
 
 .modal-content {
+  position: relative;
+  display: flex;
+
   background-color: #fff;
   width: 1000px;
   height: 600px;
@@ -104,15 +107,16 @@
   display: flex;
 }
 
-// .modal-content::before {
-//   content: "";
-//   display: flex;
-//   justify-content: space-between;
-//   width: 2px; 
-//   height: 100%;
-//   background-color: #000; 
-//   margin-left: 6em;
-// }
+.modal-content::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 100%;
+  background-color: #000;
+}
 
 .modal-content form {
   margin-top: 7em;
@@ -123,13 +127,23 @@
 
 #registration-form-container{
 margin-top:20px;
+margin-left:11em;
+font-family: "Noto Serif JP", serif;
+font-weight: 700;
 }
+
+#registration-form-container h1{
+  margin-top:0.3em;
+  margin-left:-1em;
+}
+
 
 #closeButton {
   margin-top: 10px;
   align-self: center;
 
 }
+
 
 .modal-content form label{
   font-family: "Noto Serif JP", serif;
@@ -178,9 +192,11 @@ margin-top:20px;
   color: #fff;
 }
 
-.modal-content h2 {
+.modal-content h1 {
   font-family: "Noto Serif JP", serif;
   font-weight: 800;
+  margin: 0;
+  padding: 0;
 
 }
 
