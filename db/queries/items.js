@@ -46,7 +46,12 @@ const getItemsByCategoryId = categoryId => {
 
 //get items by User ID
 const getItemsByUserId = userId => {
-  const query = `SELECT items.id, items.title, items.description FROM items WHERE user_id = $1`;
+  const query = `SELECT i.title AS title, STRING_AGG(c.title, ', ') AS category_titles, i.description as description
+  FROM items AS i
+  JOIN items_categories AS ic ON i.id = ic.item_id
+  JOIN categories AS c ON ic.category_id = c.id
+  WHERE i.user_id = $1
+  GROUP BY i.id, i.title;`;
 
   return db.query(query, [userId])
     .then(data => {

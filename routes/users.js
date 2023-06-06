@@ -8,8 +8,10 @@
 const express = require('express');
 const router  = express.Router();
 
-router.get('/', (req, res) => {
-  res.render('users');
+router.get('/check-authentication', (req, res) => {
+  const authenticated = req.session['user_id'] ? true : false;
+  console;
+  res.json({ authenticated });
 });
 
 module.exports = router;

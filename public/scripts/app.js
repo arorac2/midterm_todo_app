@@ -23,15 +23,12 @@ const populateTable = function(data) {
   const tableBody = $('tbody');
 
   for (const item of data) {
+    console.log("Item: ",item);
     const row = `
       <tr>
-        <td>${item.id}</td>
         <td>${item.title}</td>
         <td>${item.description}</td>
-        <td>${item.created_at}</td>
-        <td>${item.updated_at}</td>
-        <td>${item.category}</td>
-        <td>${item.user}</td>
+        <td>${item.category_titles}</td>
       </tr>
     `;
     tableBody.append(row);
@@ -43,8 +40,7 @@ const aiForm = (formData) => {
 
   const resultForm = `
   <div class="container">
-    <form id="userInteraction">
-      <ul class="flex-outer">
+      <ul class="flex-outer" id="flex-outer">
         <li>
           <label for="item-title">Item Name</label>
           <input type="text" id="item-title" name="title">
@@ -78,9 +74,10 @@ const aiForm = (formData) => {
           <button type="submit">Submit</button>
         </li>
       </ul>
-    </form>
   </div>
   `;
+
+  const loadingMessage = `<p id="loading-ai">Loading from AI</p>`;
 
   const intervalId = setInterval(() => {
     // textBox.value.append('.');
@@ -98,11 +95,19 @@ const aiForm = (formData) => {
     const cId = response['categoryId'];
     console.log("cid1: ", cId);
 
-    $('#loading-ai').remove();
+    $('.initial-outer').remove();
 
     console.log("prepending");
 
-    $('.flex-outer').prepend(resultForm);
+    const selector = document.getElementById("flex-outer");
+
+    if (selector) {
+      selector.remove();
+    }
+
+
+
+    $('#userInteraction').prepend(resultForm);
 
     console.log("done");
 
@@ -150,6 +155,7 @@ const aiForm = (formData) => {
         toBuyCheckbox.checked = true;
       }
 
+
       clearInterval(intervalId);
       //$('#item-title').text(`${item} : ${categories}`);
       console.log("item", item);
@@ -179,6 +185,30 @@ const aiForm = (formData) => {
 
 $(document).ready(() => {
   console.log('ready!');
+  const textbox = $('#itemTextBox');
+  textbox.val("Please log in");
+  textbox.prop('disabled', true);
+
+  let loggedin = false;
+
+  $.ajax({
+    url: '/users/check-authentication',
+    method: 'GET',
+    xhrFields: {
+      withCredentials: true // Send cookies along with the request
+    },
+    success: function(data) {
+      if (data.authenticated) {
+        console.log("authenticated");
+        textbox.prop('disabled', false); // Enable the textbox if the user is logged in
+        textbox.val("");
+        textbox.attr('placeholder', 'Please enter what you would like to add to your todo list');
+      }
+    },
+    error: function(error) {
+      console.error('Error:', error);
+    }
+  });
 
   $.ajax({
     url: '/api/items', // what url we need to use?
@@ -186,7 +216,7 @@ $(document).ready(() => {
     dataType: 'json',
   })
     .done(function(response) {
-      console.log(response);
+      console.log("response ",response);
       populateTable(response);
     })
     .fail(function(error) {
@@ -211,14 +241,23 @@ $(document).ready(() => {
     const $form = $(this);
     const formData = $form.serialize();
 
-    console.log(formData);
+    console.log("formdata",formData);
 
     const ajaxRequest = $.ajax({
       url: '/api/items',
       type: 'POST',
       data: formData,
     }).done((response) => {
-      $('.container').slideUp();
+      $('.container').slideUp(function() {
+        const selector = document.getElementById("flex-outer");
+        if (selector) {
+          selector.remove();
+        }
+
+        $('#userInteraction ').prepend(`      <ul class="flex-outer initial-outer" id="flex-outer">
+        <p id="loading-ai">Loading from AI</p>
+      </ul>`);
+      });
 
     });
 
@@ -244,12 +283,12 @@ $(document).ready(() => {
       welcomeMessage.text(`Welcome, ${result.user.name}!`);
       $("#error-message").remove();
     })
-    .catch(error => {
-      showLoginErrorMessage(error);
-    });
+      .catch(error => {
+        showLoginErrorMessage(error);
+      });
   });
 
+
+
 });
-
-
 
