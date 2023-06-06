@@ -13,12 +13,13 @@
   <link rel="stylesheet" href="/styles/main.css" />
   <link rel="stylesheet" href="/styles/layout.css" />
 
+
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Serif+JP">
 
- 
+
   <script src="/vendor/jquery-3.0.0.js"></script>
   <script defer src="/scripts/app.js"></script>
 </head>
@@ -44,8 +45,22 @@
     </div>
   </nav>
 </header>
+
+<div id="add-item">
+
+  <form action="/api/items/" method="post" id="item-form">
+    <div class="form-content">
+      <input type="text" name="item"></textarea>
+      <div class="button-container">
+        <button type="submit">Submit</button>
+      </div>
+    </div>
+  </form>
+
+</div>
+
 <body>
- 
+
 
   <div id="modal" class="modal">
     <div class="modal-content">

@@ -51,7 +51,7 @@
 .category-container {
   margin-left: 12em; /* Pushes the category container to the right */
   margin-right: auto; /* Pushes the category container to the left */
-  text-align: center; 
+  text-align: center;
 }
 
 .category-container ul {
@@ -69,7 +69,7 @@
   border-radius: 5px;
   font-family: "Noto Serif JP", serif;
   font-weight: 800;
-  
+
 }
 
 .category-container ul li a:hover {
@@ -146,5 +146,31 @@
 #closeButton:hover{
   background-color: #000;
   color: #fff;
+}
+
+
+/* Submit item textbox area */
+#add-item{
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  margin: 20px auto;
+}
+
+#item-form{
+  display: flex;
+  width: 80%;
+  margin: 20px auto;
+}
+
+.form-content {
+  display: flex;
+  width: 80%;
+  margin: 20px auto;
+}
+.form-content input[type=text]{
+  display: flex;
+  margin: 20px auto;
+  width: 80%;
 }
 
