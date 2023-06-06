@@ -8,8 +8,12 @@ loginButton.addEventListener('click', () => {
   removeLoginErrorMessage();
 });
 
-closeButton.addEventListener('click', () => {
-  modal.style.display = 'none';
+const modalClose = document.getElementById('modal');
+// Close the modal when clicking outside of it
+$(document).on('click', function(event) {
+  if (event.target === modalClose) {
+    modalClose.style.display = 'none';
+  }
 });
 
 const printResult = function(selector) {
@@ -188,7 +192,12 @@ $(document).ready(() => {
   const textbox = $('#itemTextBox');
   textbox.val("Please log in");
   textbox.prop('disabled', true);
-
+  const userName = localStorage.getItem("userName");
+  if (userName) {
+    const welcomeMessage = $("#welcomeMessage");
+    welcomeMessage.text(`Welcome, ${userName}!`);
+    localStorage.removeItem("userName"); // Remove the stored user name
+  }
 
   $.ajax({
     url: '/users/check-authentication',
@@ -286,33 +295,41 @@ $(document).ready(() => {
 
   });
 
-  $('#registrationForm').submit(function(event) {
+  $("#registrationForm").submit(function (event) {
     event.preventDefault();
     showRegistrationSuccessMessage();
+
+    setTimeout(function() {
+      hideRegistrationSuccessMessage();
+        }, 3000);
+    
   });
 
   $('#logoutButton').on('click', logout);
 
 
-  $('#loginForm').submit(function(event) {
+  $("#loginForm").submit(function (event) {
     event.preventDefault();
 
     const $form = $(this);
     const formData = $form.serialize();
 
+    performLogin(formData)
+      .then((result) => {
+        const userName = result.user.name;
 
-    performLogin(formData).then(result => {
-      const welcomeMessage = $("#welcomeMessage");
-      welcomeMessage.text(`Welcome, ${result.user.name}!`);
-      $("#error-message").remove();
-      location.reload();
-    })
-      .catch(error => {
+        localStorage.setItem("userName", userName);
+
+        $("#error-message").remove();
+        modal.style.display = "none";
+
+        location.reload();
+      })
+      .catch((error) => {
         showLoginErrorMessage(error);
       });
   });
-
-
-
 });
+
+
 

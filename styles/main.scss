@@ -125,22 +125,25 @@
   align-items: center;
 }
 
-#registration-form-container{
-margin-top:20px;
-margin-left:11em;
-font-family: "Noto Serif JP", serif;
-font-weight: 700;
+.modal-content form button:hover {
+  background-color: #000;
+  color: #fff;
 }
 
-#registration-form-container h1{
-  margin-top:0.3em;
-  margin-left:-1em;
+.modal-content form input {
+  font-family: "Noto Serif JP", serif;
+  font-weight: 800;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
 }
 
 
-#closeButton {
-  margin-top: 10px;
-  align-self: center;
+.modal-content h1 {
+  font-family: "Noto Serif JP", serif;
+  font-weight: 800;
+  margin-top: 1em;
+  margin-left: 0.5em;
+  padding: 0;
 
 }
 
@@ -165,48 +168,32 @@ font-weight: 700;
 }
 
 
+/* registrationForm design */
 
-.modal-content form button:hover {
-  background-color: #000;
-  color: #fff;
-}
-
-.modal-content form input {
-  font-family: "Noto Serif JP", serif;
-  font-weight: 800;
-  margin-top: 0.5em;
-  margin-bottom: 0.5em;
-}
-
-#closeButton {
+#registration-form-container{
+  margin-top:20px;
+  margin-left:15em;
   font-family: "Noto Serif JP", serif;
   font-weight: 700;
-  background-color: #ffffff;
-  color: #000000;
-  text-decoration: none;
-  border-radius: 5px;
-}
+  display:flex;
+  position: relative;
 
-#closeButton:hover{
-  background-color: #000;
-  color: #fff;
-}
+  }
+  
+  #registration-form-container h1{
+    margin-top:0.3em;
+    margin-left: -0.75em;
+  }
+  
+  #registrationForm {
+    margin-top: 3.5em;
+    margin-left: 4em;
+  }
+  
+  #registrationForm button {
+    margin-left: 5em;
+  }
 
-.modal-content h1 {
-  font-family: "Noto Serif JP", serif;
-  font-weight: 800;
-  margin-top: 1em;
-  margin-left: 0.5em;
-  padding: 0;
-
-}
-
-// .modal-content form label[for="email"],
-// .modal-content form label[for="password"] {
-//   width: 430px; /* Adjust the width as needed */
-//   margin-left: 1em;
-
-// }
 
 /* Submit item textbox area */
 #add-item{
@@ -247,13 +234,6 @@ font-weight: 700;
 .form-content input[type=text]:focus{
   outline:none;
 }
-
-// #add-result {
-//   display: flex;
-//   justify-content: center;
-//   width: 80%;
-//   margin: 0 auto;
-// }
 
 //item add form
 .container {
@@ -374,4 +354,27 @@ th, td {
 
 #loginButton.hidden {
   display: none;
+}
+
+/* welcome message design */
+
+#welcomeMessage{
+  font-family: "Noto Serif JP", serif;
+  font-weight: 800;
+  font-size: large;
+  margin-left: 42em;
+}
+
+/*loginForm design*/
+
+#loginForm {
+  display:flex;
+  align-items: flex-start;
+  margin-left: -2em;
+}
+
+#loginForm label {
+  margin-right: 1em;
+  margin-top: 0.5em;
+   /* Add some spacing between the labels and input fields */
 }
