@@ -1,6 +1,8 @@
 // load .env data into process.env
 require('dotenv').config();
 
+const { chat } = require('./lib/openAI');
+
 // Web server config
 const sassMiddleware = require('./lib/sass-middleware');
 const express = require('express');
@@ -47,6 +49,23 @@ app.use('/users', usersRoutes);
 app.get('/', (req, res) => {
   res.render('index');
 });
+
+app.get('/openai', (req, res) => {
+  res.render('openai');
+});
+
+app.post('/openai', (req, res) => {
+  chat(req.body.text)
+    .then((aiResponse) => {
+      console.log(req.body);
+      res.json(aiResponse);
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).json({ error: 'An error occurred' });
+    });
+});
+
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
