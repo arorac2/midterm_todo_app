@@ -1,3 +1,5 @@
+const db = require('../connection');
+
 //get all items
 const getItems = () => {
 
@@ -11,6 +13,20 @@ const getItemById = id => {
 
 //get items by category ID
 const getItemsByCategoryId = categoryId => {
+
+  const query = `SELECT items.id, items.title, items.description
+  FROM items
+  JOIN items_categories ON items.id = items_categories.item_id
+  WHERE items_categories.category_id = $1;
+  `;
+
+  return db.query(query, [categoryId])
+    .then(data => {
+      return data.rows;
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
 
 };
 
