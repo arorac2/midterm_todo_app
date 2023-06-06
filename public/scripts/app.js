@@ -27,18 +27,32 @@ $(document).ready(() => {
     const $form = $(this);
     const formData = $form.serialize();
 
+
     $.ajax({
       url: '/api/items',
       type: 'POST',
       data: formData,
-      success: function(response) {
-        console.log(response);
-        $('#add-result').text(response['title']);
-      },
-      error: function(xhr, status, error) {
-        console.log(error);
-      }
+    }).done((response) => {
+      console.log("response", response);
+      const cId = response['categoryId'];
+      console.log("cid1: ", cId);
+      const item = response.title;
+
+      $.ajax({
+        url: `/api/categories/${cId}`,
+        type: 'GET',
+      }).done((response) => {
+        console.log("cId", response.title);
+        const category = response.title;
+        $('#add-result').text(`${item} : ${category}`);
+      }).fail((xhr, status, error) => {
+        console.error("Error occurred in GET /api/categories: ", error);
+      });
+
+    }).fail((xhr, status, error) => {
+      console.error("Error occurred in POST /api/items: ", error);
     });
+
 
   });
 

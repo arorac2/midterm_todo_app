@@ -24,7 +24,8 @@ router.post('/', (req, res) => {
       console.log(req.body);
       item = aiResponse;
       console.log('item:', item);
-      items.addItem(item.item, 1)
+      //TODO: update this to work with multiple categories
+      items.addItem(item.item, 1, item.categoryId[0])
         .then(data => {
           res.json(data);
         })
