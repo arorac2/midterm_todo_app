@@ -50,7 +50,7 @@ const deleteUser = id => {
 };
 
 // Add user
-const addUser = ( name, email, password ) => {
+const addUser = (name, email, password) => {
   const query = `
     INSERT INTO users (name, email, password)
     VALUES ($1, $2, $3)
