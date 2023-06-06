@@ -2,14 +2,15 @@
 require("dotenv").config();
 
 const { chat } = require("./lib/openAI");
-const bcrypt = require("bcrypt");
 
 // Web server config
 const sassMiddleware = require("./lib/sass-middleware");
 const express = require("express");
 const morgan = require("morgan");
+const cookieSession = require("cookie-session");
+const cookieParser = require("cookie-parser");
+const bcrypt = require("bcrypt");
 
-const { getUserByEmail } = require("./helpers");
 
 const PORT = process.env.PORT || 8080;
 const app = express();
@@ -30,6 +31,14 @@ app.use(
   })
 );
 app.use(express.static("public"));
+app.use(cookieParser());
+app.use(
+  cookieSession({
+    name: "session",
+    keys: ["TaskMaster"],
+    maxAge: 24 * 60 * 60 * 1000,
+  })
+);
 
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
@@ -39,6 +48,8 @@ const itemApiRoutes = require("./routes/items-api");
 const categoryApiRoutes = require("./routes/categories-api");
 const aiApiRoutes = require("./routes/open-ai");
 const usersRoutes = require("./routes/users");
+const { getUserByEmail } = require("./helpers");
+
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
@@ -80,6 +91,7 @@ app.post("/register", (req, res) => {
     };
     users.push(newUser);
     console.log("Updated users: ", users);
+    req.session.user_id = newUser.id;
     res.json({ message: "Registration successful" });
   } catch (error) {
     console.error(error);
@@ -107,7 +119,8 @@ app.post("/login", (req, res) => {
     res.status(403).send("Invalid email or password");
     return;
   }
-
+  
+  req.session.user_id = user.id;
   console.log("Login successful:", user);
   res.json({ message: "Login successful", user });
 });
