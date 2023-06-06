@@ -2,7 +2,7 @@ const db = require('../connection');
 
 //Get all categories
 const getCategories = () => {
-  return db.query('SELECT * FROM categories;')
+  return db.query('SELECT * FROM pg_catalog.pg_tables;')
     .then(data => {
       return data.rows;
     });
@@ -10,7 +10,7 @@ const getCategories = () => {
 
 //Get category by ID
 const getCategoryById = id => {
-  const query = `SELECT * FROM categories WHERE id = $1`;
+  const query = `SELECT * FROM categories WHERE id = $1;`;
 
   return db.query(query, [id])
     .then(data =>{
@@ -24,7 +24,8 @@ const getCategoryById = id => {
 //delete category by ID
 const deleteCategory = id => {
 
-  const query = `DELETE FROM categories WHERE id = $1`;
+  const query = `DELETE FROM categories WHERE id = $1;`;
+  console.log("Hello world");
 
   return db.query(query, [id])
     .catch((err) => {
@@ -39,7 +40,7 @@ const updateCategory = (id, title) => {
     UPDATE categories
     SET title = $1
     WHERE id = $2
-    RETURNING *`;
+    RETURNING *;`;
 
   return db.query(query, [title, id])
     .catch((err) => {
