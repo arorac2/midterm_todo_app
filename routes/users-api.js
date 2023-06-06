@@ -21,4 +21,16 @@ router.get('/', (req, res) => {
     });
 });
 
+router.post('/', (req,res) =>  {
+  userQueries.addUser(req.body)
+  .then(users => {
+    res.json({ users });
+  })
+  .catch(err => {
+    res
+      .status(500)
+      .json({ error: err.message });
+  });
+});
+
 module.exports = router;
