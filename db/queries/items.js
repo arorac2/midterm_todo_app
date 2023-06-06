@@ -58,7 +58,7 @@ const getItemsByUserId = userId => {
 };
 
 //add item
-const addItem = (title, description, completed, userId, important) => {
+const addItem = (title, userId, description = null, completed = null, important = false) => {
   const query = `
     INSERT INTO items (title, description, completed, user_id, important)
     VALUES ($1, $2, $3, $4, $5)

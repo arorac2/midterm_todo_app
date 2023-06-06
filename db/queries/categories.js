@@ -2,7 +2,7 @@ const db = require('../connection');
 
 //Get all categories
 const getCategories = () => {
-  return db.query('SELECT * FROM pg_catalog.pg_tables;')
+  return db.query('SELECT * FROM categories;')
     .then(data => {
       return data.rows;
     });

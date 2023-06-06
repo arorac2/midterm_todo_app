@@ -160,6 +160,7 @@
   display: flex;
   justify-content: center;
   margin: 20px auto;
+  flex-direction: column;
 }
 
 #item-form{
@@ -171,7 +172,7 @@
 .form-content {
   display: flex;
   width: 80%;
-  margin: 20px auto;
+  margin: 0 auto;
 
 }
 .form-content input[type=text]{
@@ -191,4 +192,11 @@
 
 .form-content input[type=text]:focus{
   outline:none;
+}
+
+#add-result {
+  display: flex;
+  justify-content: center;
+  width: 80%;
+  margin: 0 auto;
 }
