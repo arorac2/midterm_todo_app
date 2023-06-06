@@ -5,7 +5,8 @@ const closeButton = document.querySelector('#closeButton');
 
 loginButton.addEventListener('click', () => {
   modal.style.display = 'block';
-});
+  removeLoginErrorMessage()
+  });
 
 closeButton.addEventListener('click', () => {
   modal.style.display = 'none';
@@ -241,6 +242,7 @@ $(document).ready(() => {
     performLogin(formData).then(result => {
       const welcomeMessage = $("#welcomeMessage");
       welcomeMessage.text(`Welcome, ${result.user.name}!`);
+      $("#error-message").remove();
     })
     .catch(error => {
       showLoginErrorMessage(error);
