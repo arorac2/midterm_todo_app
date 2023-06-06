@@ -3,6 +3,7 @@ require("dotenv").config();
 
 const { chat } = require("./lib/openAI");
 
+
 // Web server config
 const sassMiddleware = require("./lib/sass-middleware");
 const express = require("express");
@@ -12,8 +13,18 @@ const cookieParser = require("cookie-parser");
 const bcrypt = require("bcrypt");
 
 
+const { getUserByEmail, addUser } = require("./db/queries/users");
+
 const PORT = process.env.PORT || 8080;
 const app = express();
+
+app.use(cookieSession({
+  name: 'session',
+  keys: ["TaskMaster"],
+
+  // Cookie Options
+  maxAge: 24 * 60 * 60 * 1000 // 24 hours
+}));
 
 app.set("view engine", "ejs");
 
@@ -48,7 +59,6 @@ const itemApiRoutes = require("./routes/items-api");
 const categoryApiRoutes = require("./routes/categories-api");
 const aiApiRoutes = require("./routes/open-ai");
 const usersRoutes = require("./routes/users");
-const { getUserByEmail } = require("./helpers");
 
 
 // Mount all resource routes
@@ -89,7 +99,11 @@ app.post("/register", (req, res) => {
       email,
       password: hashedPassword, // Store the hashed password
     };
-    users.push(newUser);
+    // users.push(newUser);
+
+    const user = addUser(newUser.name, newUser.email, newUser.password);
+
+
     console.log("Updated users: ", users);
     req.session.user_id = newUser.id;
     res.json({ message: "Registration successful" });
@@ -110,20 +124,28 @@ app.get("/login", (req, res) => {
   res.render("login", templateVars);
 });
 
-app.post("/login", (req, res) => {
-  const { email, password } = req.body;
-  const user = getUserByEmail(email, users);
+app.post("/login", async(req, res) => {
+  try {
+    const { email, password } = req.body;
+    const user = await getUserByEmail(email);
+    console.log(user);
 
-  if (!user || !bcrypt.compareSync(password, user.password)) {
-    console.log("Invalid email or password:", user);
-    res.status(403).send("Invalid email or password");
-    return;
+
+    if (!user || !bcrypt.compareSync(password, user.password)) {
+      console.log("Invalid email or password:", user);
+      res.status(403).send("Invalid email or password");
+      return;
+    }
+
+    console.log("Login successful:", user);
+    req.session["user_id"] = user.id;
+    res.json({ message: "Login successful", user });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send('Internal server error');
   }
-  
-  req.session.user_id = user.id;
-  console.log("Login successful:", user);
-  res.json({ message: "Login successful", user });
 });
+
 
 app.post("/logout", (req, res) => {
   req.session = null;
