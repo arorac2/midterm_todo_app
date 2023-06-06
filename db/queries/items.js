@@ -6,7 +6,7 @@ const getItems = () => {
     .then(data => {
       return data.rows;
     })
-    .catch ((err) => {
+    .catch((err) => {
       console.log(err.message);
     });
 };
@@ -17,7 +17,7 @@ const getItemById = id => {
   const query = `SELECT * FROM items WHERE id = $1`;
 
   return db.query(query, [id])
-    .then(data =>{
+    .then(data => {
       return data.rows[0];
     })
     .catch((err) => {
@@ -60,8 +60,8 @@ const getItemsByUserId = userId => {
 //add item
 const addItem = (title, description, completed, userId, important) => {
   const query = `
-    INSERT INTO items (title, description, created_at, updated_at, completed, user_id, important)
-    VALUES ($1, $2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, $3, $4, $5)
+    INSERT INTO items (title, description, completed, user_id, important)
+    VALUES ($1, $2, $3, $4, $5)
     RETURNING *`;
 
   return db.query(query, [title, description, completed, userId, important])
@@ -100,4 +100,4 @@ const updateItem = ({ id, title, description, completed, userId, important }) =>
     });
 };
 
-module.exports = { getItems, getItemById, getItemsByCategoryId, getItemsByUserId, addItem, deleteItem, updateItem};
+module.exports = { getItems, getItemById, getItemsByCategoryId, getItemsByUserId, addItem, deleteItem, updateItem };
