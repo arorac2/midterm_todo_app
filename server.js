@@ -147,6 +147,8 @@ app.post("/login", async(req, res) => {
 
 app.post("/logout", (req, res) => {
   req.session = null;
+  res.clearCookie('session');
+  res.redirect('/');
 });
 
 app.get("/openai", (req, res) => {

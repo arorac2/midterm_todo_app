@@ -23,7 +23,7 @@ function showLoginErrorMessage(error) {
   loginFormContainer.appendChild(errorMessage);
 }
 
-function removeLoginErrorMessage(){
+function removeLoginErrorMessage() {
   console.log("attempt to remove msg: ");
   const successMessage = document.createElement("div");
   const errorMessageContainer = document.getElementById("error-message");
@@ -32,7 +32,7 @@ function removeLoginErrorMessage(){
   // errorMessageContainer.classList.add('error-message');
   // errorMessageContainer.style.display = 'none';
   // errorMessageContainer.innerHTML = 'test2';
-  
+
 }
 
 function performLogin(formData) {
@@ -59,12 +59,13 @@ function logout() {
   $.ajax({
     url: "/logout",
     method: "POST",
-    success: function (response) {
+    success: function(response) {
       // Handle successful logout
       console.log("Logged out successfully");
+      location.reload();
       // Perform any additional actions (e.g., redirect to login page)
     },
-    error: function (xhr, status, error) {
+    error: function(xhr, status, error) {
       // Handle logout error
       console.error("Logout error:", error);
     },

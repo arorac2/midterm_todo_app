@@ -5,8 +5,8 @@ const closeButton = document.querySelector('#closeButton');
 
 loginButton.addEventListener('click', () => {
   modal.style.display = 'block';
-  removeLoginErrorMessage()
-  });
+  removeLoginErrorMessage();
+});
 
 // document.addEventListener('click', function(event {
 // let modal = document.getElementById('modal');
@@ -186,9 +186,36 @@ const aiForm = (formData) => {
 
 $(document).ready(() => {
   console.log('ready!');
+  const textbox = $('#itemTextBox');
+  textbox.val("Please log in");
+  textbox.prop('disabled', true);
+
 
   $.ajax({
-    url: '/api/items', // what url we need to use?
+    url: '/users/check-authentication',
+    method: 'GET',
+    xhrFields: {
+      withCredentials: true // Send cookies along with the request
+    },
+    success: function(data) {
+      if (data.authenticated) {
+        console.log("authenticated");
+        textbox.prop('disabled', false); // Enable the textbox if the user is logged in
+        textbox.val("");
+        textbox.attr('placeholder', 'Please enter what you would like to add to your todo list');
+        $('#loginButton').addClass('hidden');
+        $('#logoutButton').removeClass('hidden');
+
+
+      }
+    },
+    error: function(error) {
+      console.error('Error:', error);
+    }
+  });
+
+  $.ajax({
+    url: '/api/items',
     method: 'GET',
     dataType: 'json',
   })
@@ -218,14 +245,48 @@ $(document).ready(() => {
     const $form = $(this);
     const formData = $form.serialize();
 
-    console.log(formData);
+
+    console.log("formdata",$form);
+
 
     const ajaxRequest = $.ajax({
       url: '/api/items',
       type: 'POST',
       data: formData,
     }).done((response) => {
-      $('.container').slideUp();
+
+      // $('.container').slideUp();
+
+
+      console.log("form repose: ",response);
+
+
+      $('.container').slideUp(function() {
+        const selector = document.getElementById("flex-outer");
+        if (selector) {
+          selector.remove();
+        }
+
+        $('#userInteraction ').prepend(`      <ul class="flex-outer initial-outer" id="flex-outer">
+        <p id="loading-ai">Loading from AI</p>
+      </ul>`);
+
+        $.ajax({
+          url: '/api/items',
+          method: 'GET',
+          dataType: 'json',
+        })
+          .done(function(response) {
+            console.log("response ",response);
+            $("tbody tr").remove();
+
+            populateTable(response);
+          })
+          .fail(function(error) {
+            console.log('Error:', error);
+          });
+      });
+
 
     });
 
@@ -249,7 +310,10 @@ $(document).ready(() => {
     performLogin(formData).then(result => {
       const welcomeMessage = $("#welcomeMessage");
       welcomeMessage.text(`Welcome, ${result.user.name}!`);
-      $("#error-message").remove()
+
+      $("#error-message").remove();
+      location.reload();
+
     })
     .catch(error => {
       showLoginErrorMessage(error);
@@ -257,6 +321,4 @@ $(document).ready(() => {
   });
 
 });
-
-
 
