@@ -96,7 +96,6 @@
 .modal-content {
   position: relative;
   display: flex;
-
   background-color: #fff;
   width: 1000px;
   height: 600px;
@@ -120,23 +119,31 @@
 
 .modal-content form {
   margin-top: 7em;
-  display: flex;
+  // display: flex;
   flex-direction: column;
   align-items: center;
 }
 
 #registration-form-container{
 margin-top:20px;
-margin-left:11em;
+margin-left:15em;
 font-family: "Noto Serif JP", serif;
 font-weight: 700;
 }
 
 #registration-form-container h1{
   margin-top:0.3em;
-  margin-left:-1em;
+  margin-left: -0.75em;
 }
 
+#registrationForm {
+  margin-top: 3.5em;
+  margin-left: 4em;
+}
+
+#registrationForm button {
+  margin-left: 5em;
+}
 
 #closeButton {
   margin-top: 10px;
@@ -150,7 +157,8 @@ font-weight: 700;
   font-weight: 800;
   margin-bottom: 10px;
   margin-right: 10px;
-
+  display: flex;
+  width: 75%;
 
 }
 
@@ -164,11 +172,28 @@ font-weight: 700;
   margin-top: 0.5em;
 }
 
+#loginForm {
+  display:flex;
+  align-items: flex-start;
+  margin-left: -2em;
+}
 
+#loginForm label {
+  margin-right: 1em;
+  margin-top: 0.5em;
+   /* Add some spacing between the labels and input fields */
+}
+
+#loginForm button{
+  margin-left: 5em;
+  
+
+}
 
 .modal-content form button:hover {
   background-color: #000;
   color: #fff;
+
 }
 
 .modal-content form input {
@@ -201,14 +226,7 @@ font-weight: 700;
 
 }
 
-// .modal-content form label[for="email"],
-// .modal-content form label[for="password"] {
-//   width: 430px; /* Adjust the width as needed */
-//   margin-left: 1em;
 
-// }
-
-/* Submit item textbox area */
 #add-item{
   width: 80%;
   display: flex;
