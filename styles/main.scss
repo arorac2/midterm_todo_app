@@ -1,6 +1,7 @@
  body {
    background: rgb(204, 233, 229);
 }
+/* Logo design  */
 
 .logo-container {
   display: flex;
@@ -19,6 +20,8 @@
 .logo {
   align-self: flex-start;
 }
+
+/* button designs */ 
 
 .button-container {
   display: flex;
@@ -82,6 +85,7 @@
 }
 
 /* Modal styles */
+
 .modal {
   display: none;
   position: fixed;
@@ -124,33 +128,10 @@
   align-items: center;
 }
 
-#registration-form-container{
-margin-top:20px;
-margin-left:15em;
-font-family: "Noto Serif JP", serif;
-font-weight: 700;
+
+.button-container #welcomeMessage {
+  margin-right: 1em;
 }
-
-#registration-form-container h1{
-  margin-top:0.3em;
-  margin-left: -0.75em;
-}
-
-#registrationForm {
-  margin-top: 3.5em;
-  margin-left: 4em;
-}
-
-#registrationForm button {
-  margin-left: 5em;
-}
-
-#closeButton {
-  margin-top: 10px;
-  align-self: center;
-
-}
-
 
 .modal-content form label{
   font-family: "Noto Serif JP", serif;
@@ -172,6 +153,65 @@ font-weight: 700;
   margin-top: 0.5em;
 }
 
+
+.modal-content form button:hover {
+  background-color: #000;
+  color: #fff;
+
+}
+
+.modal-content form input {
+  font-family: "Noto Serif JP", serif;
+  font-weight: 800;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+
+.modal-content h1 {
+  font-family: "Noto Serif JP", serif;
+  font-weight: 800;
+  margin-top: 1em;
+  margin-left: 0.5em;
+  padding: 0;
+
+}
+
+/* registrationForm design */
+
+#registration-form-container{
+  margin-top:20px;
+  margin-left:15em;
+  font-family: "Noto Serif JP", serif;
+  font-weight: 700;
+  }
+  
+  #registration-form-container h1{
+    margin-top:0.3em;
+    margin-left: -0.75em;
+  }
+  
+  #registrationForm {
+    margin-top: 3.5em;
+    margin-left: 4em;
+  }
+  
+  #registrationForm button {
+    margin-left: 5em;
+  }
+  
+  
+/* welcome message design */
+
+#welcomeMessage{
+  font-family: "Noto Serif JP", serif;
+  font-weight: 800;
+  font-size: large;
+  margin-left: 42em;
+}
+
+/*loginForm design*/
+
 #loginForm {
   display:flex;
   align-items: flex-start;
@@ -187,42 +227,6 @@ font-weight: 700;
 #loginForm button{
   margin-left: 5em;
   
-
-}
-
-.modal-content form button:hover {
-  background-color: #000;
-  color: #fff;
-
-}
-
-.modal-content form input {
-  font-family: "Noto Serif JP", serif;
-  font-weight: 800;
-  margin-top: 0.5em;
-  margin-bottom: 0.5em;
-}
-
-#closeButton {
-  font-family: "Noto Serif JP", serif;
-  font-weight: 700;
-  background-color: #ffffff;
-  color: #000000;
-  text-decoration: none;
-  border-radius: 5px;
-}
-
-#closeButton:hover{
-  background-color: #000;
-  color: #fff;
-}
-
-.modal-content h1 {
-  font-family: "Noto Serif JP", serif;
-  font-weight: 800;
-  margin-top: 1em;
-  margin-left: 0.5em;
-  padding: 0;
 
 }
 
@@ -266,14 +270,9 @@ font-weight: 700;
   outline:none;
 }
 
-// #add-result {
-//   display: flex;
-//   justify-content: center;
-//   width: 80%;
-//   margin: 0 auto;
-// }
 
-//item add form
+/*item add form*/
+
 .container {
   width: 80%;
   max-width: 1200px;
@@ -384,7 +383,7 @@ th, td {
 }
 
 
-//Log in / out buttons
+/*Log in / out buttons*/
 
 #logoutButton.hidden {
   display: none;
