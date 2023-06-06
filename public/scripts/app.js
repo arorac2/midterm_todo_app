@@ -10,3 +10,12 @@ loginButton.addEventListener('click', () => {
 closeButton.addEventListener('click', () => {
   modal.style.display = 'none';
 });
+
+$(document).ready(() => {
+  console.log('ready!');
+
+  $('#item-form').submit(function(event) {
+    event.preventDefault();
+  });
+
+});
