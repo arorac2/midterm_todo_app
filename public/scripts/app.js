@@ -188,6 +188,9 @@ $(document).ready(() => {
     performLogin(formData).then(result => {
       const welcomeMessage = $("#welcomeMessage");
       welcomeMessage.text(`Welcome, ${result.user.name}!`);
+    })
+    .catch(error => {
+      showLoginErrorMessage(error);
     });
   });
 

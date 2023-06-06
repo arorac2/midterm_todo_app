@@ -93,14 +93,14 @@ app.post("/register", (req, res) => {
     if (!name || !email || !password) {
       throw new Error("Missing required fields");
     }
+    
     const hashedPassword = bcrypt.hashSync(password, 10); // Hash the password
     const newUser = {
       name,
       email,
       password: hashedPassword, // Store the hashed password
     };
-    // users.push(newUser);
-
+  
     const user = addUser(newUser.name, newUser.email, newUser.password);
 
 
@@ -133,8 +133,8 @@ app.post("/login", async(req, res) => {
 
     if (!user || !bcrypt.compareSync(password, user.password)) {
       console.log("Invalid email or password:", user);
-      res.status(403).send("Invalid email or password");
-      return;
+      // res.status(403).send("Invalid email or password");
+      res.status(403).json({ error: "Invalid email or password" });      return;
     }
 
     console.log("Login successful:", user);
