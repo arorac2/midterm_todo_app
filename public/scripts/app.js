@@ -18,6 +18,55 @@ const printResult = function(selector) {
   $('.counter').toggleClass('negative', count < 0);
 };
 
+const aiForm = (formData) => {
+  $('#add-result').text(`Loading from AI`);
+
+  const intervalId = setInterval(() => {
+    $('#add-result').append('.');
+  }, 300);
+
+  const ajaxRequest = $.ajax({
+    url: '/api/items',
+    type: 'POST',
+    data: formData,
+  }).done((response) => {
+    console.log("response", response);
+    const cId = response['categoryId'];
+    console.log("cid1: ", cId);
+    const item = response.title;
+
+    $.ajax({
+      url: `/api/categories/${cId}`,
+      type: 'GET',
+    }).done((response) => {
+      console.log("cId", response.title);
+      const category = response.title;
+      clearInterval(intervalId);
+      $('#add-result').text(`${item} : ${category}`);
+    }).fail((xhr, status, error) => {
+      console.error("Error occurred in GET /api/categories: ", error);
+      clearInterval(intervalId);
+      $('#add-result').text('Error occurred');
+    });
+
+  }).fail((xhr, status, error) => {
+    if (error === 'abort') {
+      console.log('Request aborted');
+    } else {
+      console.error("Error occurred in POST /api/items: ", error);
+      clearInterval(intervalId);
+      $('#add-result').text('Error occurred');
+    }
+  });
+
+  // After five seconds, abort the request
+  setTimeout(() => {
+    ajaxRequest.abort();
+  }, 5000);
+};
+
+
+
 $(document).ready(() => {
   console.log('ready!');
 
@@ -28,30 +77,7 @@ $(document).ready(() => {
     const formData = $form.serialize();
 
 
-    $.ajax({
-      url: '/api/items',
-      type: 'POST',
-      data: formData,
-    }).done((response) => {
-      console.log("response", response);
-      const cId = response['categoryId'];
-      console.log("cid1: ", cId);
-      const item = response.title;
-
-      $.ajax({
-        url: `/api/categories/${cId}`,
-        type: 'GET',
-      }).done((response) => {
-        console.log("cId", response.title);
-        const category = response.title;
-        $('#add-result').text(`${item} : ${category}`);
-      }).fail((xhr, status, error) => {
-        console.error("Error occurred in GET /api/categories: ", error);
-      });
-
-    }).fail((xhr, status, error) => {
-      console.error("Error occurred in POST /api/items: ", error);
-    });
+    aiForm(formData);
 
 
   });
