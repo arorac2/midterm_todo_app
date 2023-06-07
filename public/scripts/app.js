@@ -62,7 +62,7 @@ const aiForm = (formData) => {
   // After five seconds, abort the request
   setTimeout(() => {
     ajaxRequest.abort();
-  }, 5000);
+  }, 10000);
 };
 
 
