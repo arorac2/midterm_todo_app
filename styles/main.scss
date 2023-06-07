@@ -204,15 +204,12 @@
 
 /* table */
 table {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  // position: absolute;
   width: 80%;
   border-collapse: collapse;
-  margin-top: 20px;
+  margin: 20px auto;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
+
 
 th, td {
   padding: 10px;
