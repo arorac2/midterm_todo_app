@@ -1,17 +1,24 @@
-function performLogin(username, password) {
-  $.ajax({
-    url: "/login",
-    method: "POST",
-    dataType: "json",
-    contentType: "application/json",
-    data: JSON.stringify({ username, password }),
-    success: (data) => {
-      const welcomeMessage = document.getElementById("welcomeMessage");
-      welcomeMessage.textContent = `Welcome, ${data.user.name}!`;
-    },
+// const loginForm = document.getElementById('loginForm');
+// loginForm.addEventListener('submit', performLogin)
 
-    error: (error) => {
-      console.log("Login failed:", error);
-    },
-  });
+function performLogin(formData) {
+return new Promise((resolve, reject) => {
+    $.ajax({
+        url: "/login",
+        method: "POST",
+        data: formData,
+        success: (data) => {
+         resolve(data);
+        },
+        
+        error: (error) => {
+          console.log("Login failed:", error);
+          reject(error);
+        },
+      });
+})
+  
 }
+
+  
+  
