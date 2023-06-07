@@ -66,24 +66,41 @@ const addItem = (title, userId, categoryId, description = null, completed = null
 
   return db.query(query, [title, description, completed, userId, important])
     .then(data => {
+
+      console.log("Inserting Item");
       const item = data.rows[0];
+
+      let ids = "";
+
+      for (let i = 0; i < categoryId.length; i++) {
+        const value = categoryId[i];
+        ids += `(${item.id}, ${value})`;
+
+        if (i !== categoryId.length - 1) {
+          ids += ',';
+        }
+      }
+
       const itemCategoryIdQuery = `
         INSERT INTO items_categories (item_id, category_id)
-        VALUES ($1, $2)`;
+        VALUES ${ids}`;
 
-      return db.query(itemCategoryIdQuery, [item.id, categoryId])
+      return db.query(itemCategoryIdQuery)
         .then(() => {
-          return {title: item.title, categoryId: categoryId};
+          console.log("Inserting Glue");
+          return { title: item.title, categoryId: categoryId };
         })
         .catch(err => {
+          console.log(err.query);
           console.log(err.message);
-          return {item};
+          return { item };
         });
     })
     .catch((err) => {
       console.log(err.message);
     });
 };
+
 
 
 

@@ -74,10 +74,19 @@ const aiForm = (formData) => {
       url: `/api/categories/${cId}`,
       type: 'GET',
     }).done((response) => {
-      console.log("cId", response.title);
-      const category = response.title;
+      let categories = "";
+
+      for (let id of response) {
+        categories += `${id.title}, `;
+
+      }
+
+      categories = categories.slice(0, -2);
+
+      console.log("response", response);
+      console.log("cId", response['title']);
       clearInterval(intervalId);
-      $('#add-result').text(`${item} : ${category}`);
+      $('#add-result').text(`${item} : ${categories}`);
     }).fail((xhr, status, error) => {
       console.error("Error occurred in GET /api/categories: ", error);
       clearInterval(intervalId);

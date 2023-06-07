@@ -8,18 +8,28 @@ const getCategories = () => {
     });
 };
 
-//Get category by ID
-const getCategoryById = id => {
-  const query = `SELECT * FROM categories WHERE id = $1;`;
+//Get category/categories by ID/IDs
+const getCategoryById = ids => {
+  const idArray = ids.split(',').map(Number);
 
-  return db.query(query, [id])
+  let placeholders = '';
+  for (let i = 1; i <= idArray.length; i++) {
+    placeholders += `$${i},`;
+  }
+  placeholders = placeholders.slice(0, -1); // remove the last comma
+
+  const query = `SELECT * FROM categories WHERE id IN (${placeholders})`;
+
+  return db.query(query, idArray)
     .then(data =>{
-      return data.rows[0];
+      return data.rows;
     })
     .catch((err) => {
       console.log(err.message);
     });
 };
+
+
 
 //delete category by ID
 const deleteCategory = id => {
