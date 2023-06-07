@@ -1,7 +1,21 @@
-const {Client} = require ('pg');
-// create new psql client
-// const client with psql
-// .connect to database
-// client.query('SELECT column1, column2 FROM your_table_name')
-// Iterate over the rows and add them to the table dynamically
-// then stop collection
+$(document).ready(() => {
+  // Function to populate the table rows with data
+  const populateTable = (data) => {
+    const tableBody = $('table tbody');
+    tableBody.empty(); // Clear existing rows
+
+    data.forEach((item) => {
+      const row = `
+        <tr>
+          <td>${items.id}</td>
+          <td>${items.title}</td>
+          <td>${items.description}</td>
+          <td>${items.created_at}</td>
+          <td>${items.updated_at}</td>
+          <td>${categories.id}</td>
+          <td>${users.id}</td>
+        </tr>
+      `;
+      tableBody.append(row);
+    });
+  };
