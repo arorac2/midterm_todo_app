@@ -210,7 +210,7 @@ $(document).ready(() => {
   });
 
   $.ajax({
-    url: '/api/items', // what url we need to use?
+    url: '/api/items',
     method: 'GET',
     dataType: 'json',
   })
@@ -240,13 +240,18 @@ $(document).ready(() => {
     const $form = $(this);
     const formData = $form.serialize();
 
-    console.log("formdata",formData);
+
+    console.log("formdata",$form);
 
     const ajaxRequest = $.ajax({
       url: '/api/items',
       type: 'POST',
       data: formData,
     }).done((response) => {
+
+      console.log("form repose: ",response);
+
+
       $('.container').slideUp(function() {
         const selector = document.getElementById("flex-outer");
         if (selector) {
@@ -256,6 +261,21 @@ $(document).ready(() => {
         $('#userInteraction ').prepend(`      <ul class="flex-outer initial-outer" id="flex-outer">
         <p id="loading-ai">Loading from AI</p>
       </ul>`);
+
+        $.ajax({
+          url: '/api/items',
+          method: 'GET',
+          dataType: 'json',
+        })
+          .done(function(response) {
+            console.log("response ",response);
+            $("tbody tr").remove();
+
+            populateTable(response);
+          })
+          .fail(function(error) {
+            console.log('Error:', error);
+          });
       });
 
     });
