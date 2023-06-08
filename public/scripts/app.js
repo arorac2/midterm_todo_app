@@ -18,40 +18,24 @@ const printResult = function(selector) {
   $('.counter').toggleClass('negative', count < 0);
 };
 
-// // Function to populate the table rows with data
-// const addToTable = (data) => {
-//   const tableBody = $('table tbody');
-//   tableBody.empty(); // Clear existing rows
+const populateTable = function(data) {
+  const tableBody = $('tbody');
 
-//   data.forEach((item) => {
-//     const row = `
-//       <tr>
-//         <td>${items.id}</td>
-//         <td>${items.title}</td>
-//         <td>${items.description}</td>
-//         <td>${items.created_at}</td>
-//         <td>${items.updated_at}</td>
-//         <td>${categories.title}</td>
-//         <td>${users.name}</td>
-//       </tr>
-//     `;
-//     tableBody.append(row);
-//   });
-// };
-
-// const fetchItems = () => {
-//   $.ajax({
-//     url: '/api/items',
-//     method: 'GET',
-//     dataType: 'json',
-//     success: function(response) {
-//       addToTable(response);
-//     },
-//     error: function(xhr, status, error) {
-//       console.error('Error occurred:', error);
-//     }
-//   });
-// };
+  for (const item of data) {
+    const row = `
+      <tr>
+        <td>${item.id}</td>
+        <td>${item.title}</td>
+        <td>${item.description}</td>
+        <td>${item.created_at}</td>
+        <td>${item.updated_at}</td>
+        <td>${item.category}</td>
+        <td>${item.user}</td>
+      </tr>
+    `;
+    tableBody.append(row);
+  }
+};
 
 const aiForm = (formData) => {
   $('#add-result').text(`Loading from AI`);
@@ -113,8 +97,19 @@ const aiForm = (formData) => {
 $(document).ready(() => {
   console.log('ready!');
 
-  // Fetch items on page load
-  fetchItems();
+  $.ajax({
+    url: '/api/items', // what url we need to use?
+    method: 'GET',
+    dataType: 'json',
+  })
+    .done(function(response) {
+      console.log(response);
+      populateTable(response);
+    })
+    .fail(function(error) {
+      console.log('Error:', error);
+    });
+
 
   $('#item-form').submit(function(event) {
     event.preventDefault();
@@ -130,8 +125,8 @@ $(document).ready(() => {
 
     const $form = $(this);
     const formData = $form.serialize();
-    
-   
+
+
     performLogin(formData).then(result => {
       const welcomeMessage = $("#welcomeMessage");
       welcomeMessage.text(`Welcome, ${result.user.name}!`);
