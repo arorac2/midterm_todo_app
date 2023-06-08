@@ -38,10 +38,12 @@ const populateTable = function(data) {
 };
 
 const aiForm = (formData) => {
-  $('#add-result').text(`Loading from AI`);
+
+  const textBox = document.getElementById("item-title");
+  textBox.value = 'Loading from AI';
 
   const intervalId = setInterval(() => {
-    $('#add-result').append('.');
+    // textBox.value.append('.');
   }, 300);
 
   const ajaxRequest = $.ajax({
@@ -58,33 +60,60 @@ const aiForm = (formData) => {
       url: `/api/categories/${cId}`,
       type: 'GET',
     }).done((response) => {
-      let categories = "";
+      let categories = [];
 
       for (let id of response) {
-        categories += `${id.title}, `;
-
+        categories.push(id.title);
       }
 
-      categories = categories.slice(0, -2);
+      console.log("categories", categories);
+
+      const toEatCheckbox = document.getElementById("to-eat");
+      const toReadCheckbox = document.getElementById("to-read");
+      const toWatchCheckbox = document.getElementById("to-watch");
+      const toBuyCheckbox = document.getElementById("to-buy");
+
+      toEatCheckbox.checked = false;
+      toReadCheckbox.checked = false;
+      toWatchCheckbox.checked = false;
+      toBuyCheckbox.checked = false;
+
+      if (categories.includes('To Eat')) {
+        toEatCheckbox.checked = true;
+      }
+
+      if (categories.includes('To Watch')) {
+        toWatchCheckbox.checked = true;
+      }
+
+      if (categories.includes('To Read')) {
+        toReadCheckbox.checked = true;
+      }
+
+      if (categories.includes('To Buy')) {
+        toBuyCheckbox.checked = true;
+      }
+
 
       console.log("response", response);
       console.log("cId", response['title']);
       clearInterval(intervalId);
-      $('#add-result').text(`${item} : ${categories}`);
+      //$('#item-title').text(`${item} : ${categories}`);
+      textBox.value = item;
     }).fail((xhr, status, error) => {
       console.error("Error occurred in GET /api/categories: ", error);
       clearInterval(intervalId);
-      $('#add-result').text('Error occurred');
+      $('#item-title').text('Error occurred');
     });
 
   }).fail((xhr, status, error) => {
     if (error === 'abort') {
       console.log('Request aborted');
-      $('#add-result').text('Request Timed Out. Please try again');
+      $('#item-title').text('Request Timed Out. Please try again');
     } else {
       console.error("Error occurred in POST /api/items: ", error);
       clearInterval(intervalId);
-      $('#add-result').text('Error occurred');
+      $('#item-title').text('Error occurred');
     }
   });
 
