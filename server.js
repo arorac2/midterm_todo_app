@@ -9,7 +9,6 @@ const sassMiddleware = require("./lib/sass-middleware");
 const express = require("express");
 const morgan = require("morgan");
 const cookieSession = require("cookie-session");
-const cookieParser = require("cookie-parser");
 const bcrypt = require("bcrypt");
 
 
@@ -42,7 +41,6 @@ app.use(
   })
 );
 app.use(express.static("public"));
-app.use(cookieParser());
 app.use(
   cookieSession({
     name: "session",
@@ -93,14 +91,14 @@ app.post("/register", (req, res) => {
     if (!name || !email || !password) {
       throw new Error("Missing required fields");
     }
-    
+
     const hashedPassword = bcrypt.hashSync(password, 10); // Hash the password
     const newUser = {
       name,
       email,
       password: hashedPassword, // Store the hashed password
     };
-  
+
     const user = addUser(newUser.name, newUser.email, newUser.password);
 
 
