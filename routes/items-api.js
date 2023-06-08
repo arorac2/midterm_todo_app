@@ -5,7 +5,11 @@ const { chat } = require('../lib/openAI');
 
 // GET all items
 router.get('/', (req, res) => {
-  items.getItems()
+
+  const uID = req.session["user_id"];
+  console.log("userid: ",uID);
+
+  items.getItemsByUserId(uID)
     .then(data => {
       res.json(data);
     })
@@ -18,6 +22,7 @@ router.get('/', (req, res) => {
 // POST add item
 router.post('/', (req, res) => {
   let item = req.body;
+  const uID = req.session["user_id"];
 
   console.log("newItem: ",item);
 
@@ -40,7 +45,7 @@ router.post('/', (req, res) => {
 
   console.log(categories);
 
-  items.addItem(item.title, 1, categories)
+  items.addItem(item.title, uID, categories)
     .then(data => {
       res.json(data);
     })
