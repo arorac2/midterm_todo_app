@@ -9,4 +9,11 @@ const getUserByEmail = (email, users) => {
   return undefined;
 };
 
-module.exports = { getUserByEmail };
+function generateUniqueID() {
+  const timestamp = Date.now().toString(); // Get current timestamp
+  const random = Math.floor(Math.random() * 1000).toString(); // Generate random number
+  return timestamp + random; // Combine timestamp and random number
+}
+
+
+module.exports = { getUserByEmail, generateUniqueID };

@@ -13,6 +13,16 @@ function showRegistrationSuccessMessage() {
   registrationFormContainer.appendChild(successMessage);
 }
 
+function showLoginErrorMessage(error) {
+  console.log("Attempting to display error message:", error);
+  const errorMessage = document.createElement("div");
+  errorMessage.textContent = 'Invalid username or password';
+  errorMessage.classList.add("error-message");
+  const loginFormContainer = document.getElementById("loginForm");
+  loginFormContainer.appendChild(errorMessage);
+}
+
+
 function performLogin(formData) {
   return new Promise((resolve, reject) => {
     $.ajax({
@@ -25,6 +35,7 @@ function performLogin(formData) {
 
       error: (error) => {
         console.log("Login failed:", error);
+        console.log("Error message:", error.responseText);
         reject(error);
       },
     });
@@ -47,3 +58,5 @@ function logout() {
     },
   });
 }
+
+

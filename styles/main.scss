@@ -195,10 +195,18 @@ font-weight: 700;
 .modal-content h1 {
   font-family: "Noto Serif JP", serif;
   font-weight: 800;
-  margin: 0;
+  margin-top: 1em;
+  margin-left: 0.5em;
   padding: 0;
 
 }
+
+// .modal-content form label[for="email"],
+// .modal-content form label[for="password"] {
+//   width: 430px; /* Adjust the width as needed */
+//   margin-left: 1em;
+
+// }
 
 /* Submit item textbox area */
 #add-item{

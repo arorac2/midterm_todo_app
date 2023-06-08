@@ -2,13 +2,16 @@
 require("dotenv").config();
 
 const { chat } = require("./lib/openAI");
-const bcrypt = require("bcrypt");
-const cookieSession = require('cookie-session');
+
 
 // Web server config
 const sassMiddleware = require("./lib/sass-middleware");
 const express = require("express");
 const morgan = require("morgan");
+const cookieSession = require("cookie-session");
+const cookieParser = require("cookie-parser");
+const bcrypt = require("bcrypt");
+
 
 const { getUserByEmail, addUser } = require("./db/queries/users");
 
@@ -39,6 +42,14 @@ app.use(
   })
 );
 app.use(express.static("public"));
+app.use(cookieParser());
+app.use(
+  cookieSession({
+    name: "session",
+    keys: ["TaskMaster"],
+    maxAge: 24 * 60 * 60 * 1000,
+  })
+);
 
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
@@ -48,6 +59,7 @@ const itemApiRoutes = require("./routes/items-api");
 const categoryApiRoutes = require("./routes/categories-api");
 const aiApiRoutes = require("./routes/open-ai");
 const usersRoutes = require("./routes/users");
+
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
@@ -81,18 +93,19 @@ app.post("/register", (req, res) => {
     if (!name || !email || !password) {
       throw new Error("Missing required fields");
     }
+    
     const hashedPassword = bcrypt.hashSync(password, 10); // Hash the password
     const newUser = {
       name,
       email,
       password: hashedPassword, // Store the hashed password
     };
-    // users.push(newUser);
-
+  
     const user = addUser(newUser.name, newUser.email, newUser.password);
 
 
     console.log("Updated users: ", users);
+    req.session.user_id = newUser.id;
     res.json({ message: "Registration successful" });
   } catch (error) {
     console.error(error);
@@ -120,8 +133,8 @@ app.post("/login", async(req, res) => {
 
     if (!user || !bcrypt.compareSync(password, user.password)) {
       console.log("Invalid email or password:", user);
-      res.status(403).send("Invalid email or password");
-      return;
+      // res.status(403).send("Invalid email or password");
+      res.status(403).json({ error: "Invalid email or password" });      return;
     }
 
     console.log("Login successful:", user);
