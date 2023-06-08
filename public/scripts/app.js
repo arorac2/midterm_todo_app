@@ -189,7 +189,6 @@ $(document).ready(() => {
   textbox.val("Please log in");
   textbox.prop('disabled', true);
 
-  let loggedin = false;
 
   $.ajax({
     url: '/users/check-authentication',
@@ -203,6 +202,10 @@ $(document).ready(() => {
         textbox.prop('disabled', false); // Enable the textbox if the user is logged in
         textbox.val("");
         textbox.attr('placeholder', 'Please enter what you would like to add to your todo list');
+        $('#loginButton').addClass('hidden');
+        $('#logoutButton').removeClass('hidden');
+
+
       }
     },
     error: function(error) {
