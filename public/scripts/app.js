@@ -147,6 +147,8 @@ $(document).ready(() => {
     const formData = $form.serialize();
 
     aiForm(formData);
+
+    $('.container').slideDown();
   });
 
   $('#userInteraction').submit(function(event) {
@@ -162,6 +164,7 @@ $(document).ready(() => {
       type: 'POST',
       data: formData,
     }).done((response) => {
+      $('.container').slideUp();
 
     });
 
