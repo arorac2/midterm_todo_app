@@ -17,11 +17,23 @@ function showLoginErrorMessage(error) {
   console.log("Attempting to display error message:", error);
   const errorMessage = document.createElement("div");
   errorMessage.textContent = 'Invalid username or password';
-  errorMessage.classList.add("error-message");
+  // errorMessage.classList.add("error-message");
+  errorMessage.id = "error-message";
   const loginFormContainer = document.getElementById("loginForm");
   loginFormContainer.appendChild(errorMessage);
 }
 
+function removeLoginErrorMessage(){
+  console.log("attempt to remove msg: ");
+  const successMessage = document.createElement("div");
+  const errorMessageContainer = document.getElementById("error-message");
+  console.log("container:", errorMessageContainer);
+  errorMessageContainer.textContent = 'TEST';
+  // errorMessageContainer.classList.add('error-message');
+  // errorMessageContainer.style.display = 'none';
+  // errorMessageContainer.innerHTML = 'test2';
+  
+}
 
 function performLogin(formData) {
   return new Promise((resolve, reject) => {
