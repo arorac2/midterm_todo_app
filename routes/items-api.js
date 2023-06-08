@@ -43,9 +43,9 @@ router.post('/', (req, res) => {
   });
 
 
-  console.log(categories);
+  console.log("categories: ",categories);
 
-  items.addItem(item.title, uID, categories)
+  items.addItem(item.title, uID, categories, item.description)
     .then(data => {
       res.json(data);
     })

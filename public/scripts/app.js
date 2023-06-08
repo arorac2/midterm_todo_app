@@ -22,15 +22,12 @@ const populateTable = function(data) {
   const tableBody = $('tbody');
 
   for (const item of data) {
+    console.log("Item: ",item);
     const row = `
       <tr>
-        <td>${item.id}</td>
         <td>${item.title}</td>
         <td>${item.description}</td>
-        <td>${item.created_at}</td>
-        <td>${item.updated_at}</td>
-        <td>${item.category}</td>
-        <td>${item.user}</td>
+        <td>${item.category_titles}</td>
       </tr>
     `;
     tableBody.append(row);
@@ -218,7 +215,7 @@ $(document).ready(() => {
     dataType: 'json',
   })
     .done(function(response) {
-      console.log(response);
+      console.log("response ",response);
       populateTable(response);
     })
     .fail(function(error) {
@@ -243,7 +240,7 @@ $(document).ready(() => {
     const $form = $(this);
     const formData = $form.serialize();
 
-    console.log(formData);
+    console.log("formdata",formData);
 
     const ajaxRequest = $.ajax({
       url: '/api/items',
