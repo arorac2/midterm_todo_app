@@ -187,6 +187,30 @@ const aiForm = (formData) => {
 
 $(document).ready(() => {
   console.log('ready!');
+  const textbox = $('#itemTextBox');
+  textbox.val("Please log in");
+  textbox.prop('disabled', true);
+
+  let loggedin = false;
+
+  $.ajax({
+    url: '/users/check-authentication',
+    method: 'GET',
+    xhrFields: {
+      withCredentials: true // Send cookies along with the request
+    },
+    success: function(data) {
+      if (data.authenticated) {
+        console.log("authenticated");
+        textbox.prop('disabled', false); // Enable the textbox if the user is logged in
+        textbox.val("");
+        textbox.attr('placeholder', 'Please enter what you would like to add to your todo list');
+      }
+    },
+    error: function(error) {
+      console.error('Error:', error);
+    }
+  });
 
   $.ajax({
     url: '/api/items', // what url we need to use?
@@ -260,9 +284,9 @@ $(document).ready(() => {
       const welcomeMessage = $("#welcomeMessage");
       welcomeMessage.text(`Welcome, ${result.user.name}!`);
     })
-    .catch(error => {
-      showLoginErrorMessage(error);
-    });
+      .catch(error => {
+        showLoginErrorMessage(error);
+      });
   });
 
 
