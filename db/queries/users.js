@@ -25,7 +25,7 @@ const getUsersByID = id => {
 };
 
 //Get users by email
-const getUsersByEmail = email => {
+const getUserByEmail = email => {
   const query = `SELECT * FROM users WHERE email = $1`;
 
   return db.query(query, [email])
@@ -107,4 +107,4 @@ const updateUser = ({ id, name, email, password }) => {
 };
 
 
-module.exports = { getUsers, getUsersByID, getUsersByEmail, deleteUser, updateUser, addUser };
+module.exports = { getUsers, getUsersByID, getUserByEmail, deleteUser, updateUser, addUser };
