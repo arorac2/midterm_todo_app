@@ -39,8 +39,47 @@ const populateTable = function(data) {
 
 const aiForm = (formData) => {
 
-  const textBox = document.getElementById("item-title");
-  textBox.value = 'Loading from AI';
+
+  const resultForm = `
+  <div class="container">
+    <form id="userInteraction">
+      <ul class="flex-outer">
+        <li>
+          <label for="item-title">Item Name</label>
+          <input type="text" id="item-title" name="title">
+        </li>
+        <li>
+          <label for="message">Description</label>
+          <textarea rows="6" id="message" placeholder="Enter your description here" name="description"></textarea>
+        </li>
+        <li>
+          <p>Categories</p>
+          <ul class="flex-inner">
+            <li>
+              <input type="checkbox" id="to-eat" name="to-eat">
+              <label for="to-eat">To Eat</label>
+            </li>
+            <li>
+              <input type="checkbox" id="to-watch" name="to-watch">
+              <label for="to-watch">To Watch</label>
+            </li>
+            <li>
+              <input type="checkbox" id="to-buy" name="to-buy">
+              <label for="to-buy">To Buy</label>
+            </li>
+            <li>
+              <input type="checkbox" id="to-read" name="to-read">
+              <label for="to-read">To Read</label>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <button type="submit">Submit</button>
+        </li>
+      </ul>
+    </form>
+  </div>
+  `;
 
   const intervalId = setInterval(() => {
     // textBox.value.append('.');
@@ -53,10 +92,24 @@ const aiForm = (formData) => {
   }).done((response) => {
 
     const item = response.item;
+    const description = response.description;
     console.log("response", response.item);
     const cId = response['categoryId'];
     console.log("cid1: ", cId);
+
+    $('#loading-ai').remove();
+
+    console.log("prepending");
+
+    $('.flex-outer').prepend(resultForm);
+
+    console.log("done");
+
+    const textBox = document.getElementById("item-title");
+    const descriptionBox = document.getElementById("message");
+    descriptionBox.value = description;
     textBox.value = item;
+
 
     $.ajax({
       url: `/api/categories/${cId}`,
@@ -171,7 +224,7 @@ $(document).ready(() => {
   });
 
   $('#registrationForm').submit(function(event) {
-    event.preventDefault();  
+    event.preventDefault();
     showRegistrationSuccessMessage();
   });
 
