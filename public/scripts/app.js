@@ -47,14 +47,16 @@ const aiForm = (formData) => {
   }, 300);
 
   const ajaxRequest = $.ajax({
-    url: '/api/items',
+    url: '/api/open-ai',
     type: 'POST',
     data: formData,
   }).done((response) => {
-    console.log("response", response);
+
+    const item = response.item;
+    console.log("response", response.item);
     const cId = response['categoryId'];
     console.log("cid1: ", cId);
-    const item = response.title;
+    textBox.value = item;
 
     $.ajax({
       url: `/api/categories/${cId}`,
@@ -94,12 +96,10 @@ const aiForm = (formData) => {
         toBuyCheckbox.checked = true;
       }
 
-
-      console.log("response", response);
-      console.log("cId", response['title']);
       clearInterval(intervalId);
       //$('#item-title').text(`${item} : ${categories}`);
-      textBox.value = item;
+      console.log("item", item);
+
     }).fail((xhr, status, error) => {
       console.error("Error occurred in GET /api/categories: ", error);
       clearInterval(intervalId);
@@ -147,6 +147,24 @@ $(document).ready(() => {
     const formData = $form.serialize();
 
     aiForm(formData);
+  });
+
+  $('#userInteraction').submit(function(event) {
+    event.preventDefault();
+
+    const $form = $(this);
+    const formData = $form.serialize();
+
+    console.log(formData);
+
+    const ajaxRequest = $.ajax({
+      url: '/api/items',
+      type: 'POST',
+      data: formData,
+    }).done((response) => {
+
+    });
+
   });
 
   $('#loginForm').submit(function(event) {

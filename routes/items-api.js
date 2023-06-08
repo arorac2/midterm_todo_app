@@ -17,27 +17,58 @@ router.get('/', (req, res) => {
 
 // POST add item
 router.post('/', (req, res) => {
-  let item = {};
-  console.log('body: ', req.body);
-  chat(req.body.item)
-    .then((aiResponse) => {
-      console.log(req.body);
-      item = aiResponse;
-      console.log('item:', item);
-      //TODO: update this to work with multiple categories
-      items.addItem(item.item, 1, item.categoryId)
-        .then(data => {
-          res.json(data);
-        })
-        .catch(err => {
-          console.log(err);
-          res.status(500).json({ error: 'An error occurred' });
-        });
+  let item = req.body;
+
+  console.log("newItem: ",item);
+
+  const categoryIds = {
+    'to-eat': 3,
+    'to-buy': 2,
+    'to-read': 4,
+    'to-watch': 1
+  };
+
+  const categories = [];
+  const keys = Object.keys(categoryIds);
+
+  keys.forEach((key) => {
+    if (item[key] === 'on') {
+      categories.push(categoryIds[key]);
+    }
+  });
+
+
+  console.log(categories);
+
+  items.addItem(item.title, 1, categories)
+    .then(data => {
+      res.json(data);
     })
-    .catch((error) => {
-      console.error(error);
+    .catch(err => {
+      console.log(err);
       res.status(500).json({ error: 'An error occurred' });
     });
+
+
+  // console.log('body: ', req.body);
+  // chat(req.body.item)
+  //   .then((aiResponse) => {
+  //     console.log(req.body);
+  //     item = aiResponse;
+  //     console.log('item:', item);
+  //     items.addItem(item.item, 1, item.categoryId)
+  //       .then(data => {
+  //         res.json(data);
+  //       })
+  //       .catch(err => {
+  //         console.log(err);
+  //         res.status(500).json({ error: 'An error occurred' });
+  //       });
+  //   })
+  //   .catch((error) => {
+  //     console.error(error);
+  //     res.status(500).json({ error: 'An error occurred' });
+  //   });
 });
 
 // DELETE item by ID
