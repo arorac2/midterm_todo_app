@@ -7,7 +7,9 @@
     - As a User, I want my ToDo list to not be overwhelming at sight (User-friendly experience) 
 
 ## ER DIAGRAM
+<img width="510" alt="image" src="https://github.com/arorac2/midterm_todo_app/assets/88734236/467b26df-a69f-4f60-9d53-7886d3be15f1">
 
 
 
 ## SKELETON
+![image](https://github.com/arorac2/midterm_todo_app/assets/88734236/884b2549-cdca-442f-aca3-b4b7e58fd2cb)
