@@ -23,17 +23,6 @@ function showLoginErrorMessage(error) {
   loginFormContainer.appendChild(errorMessage);
 }
 
-function removeLoginErrorMessage() {
-  console.log("attempt to remove msg: ");
-  const successMessage = document.createElement("div");
-  const errorMessageContainer = document.getElementById("error-message");
-  console.log("container:", errorMessageContainer);
-  errorMessageContainer.textContent = 'TEST';
-  // errorMessageContainer.classList.add('error-message');
-  // errorMessageContainer.style.display = 'none';
-  // errorMessageContainer.innerHTML = 'test2';
-
-}
 
 function performLogin(formData) {
   return new Promise((resolve, reject) => {
