@@ -19,6 +19,7 @@ const printResult = function(selector) {
   $('.counter').toggleClass('negative', count < 0);
 };
 
+
 const populateTable = function(data) {
   const tableBody = $('tbody');
 
