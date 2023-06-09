@@ -18,14 +18,14 @@ $(document).ready(function() {
   });
 });
 
-const printResult = function (selector) {
+const printResult = function(selector) {
   let text = $(selector).val();
   let count = 140 - text.length;
   $(".counter").text(count);
   $(".counter").toggleClass("negative", count < 0);
 };
 
-const populateTable = function (data) {
+const populateTable = function(data) {
   const tableBody = $("tbody");
 
   for (const item of data) {
@@ -185,7 +185,8 @@ $(document).ready(() => {
   console.log("ready!");
   const textbox = $("#itemTextBox");
   textbox.val("Please log in");
-  textbox.prop("disabled", true);
+  textbox.prop('disabled', true);
+
   const userName = localStorage.getItem("userName");
   if (userName) {
     const welcomeMessage = $("#welcomeMessage");
@@ -193,26 +194,26 @@ $(document).ready(() => {
     localStorage.removeItem("userName"); // Remove the stored user name
   }
 
+
   $.ajax({
     url: "/users/check-authentication",
     method: "GET",
     xhrFields: {
       withCredentials: true, // Send cookies along with the request
     },
-    success: function (data) {
+    success: function(data) {
       if (data.authenticated) {
         console.log("authenticated");
         textbox.prop("disabled", false); // Enable the textbox if the user is logged in
         textbox.val("");
-        textbox.attr(
-          "placeholder",
-          "Please enter what you would like to add to your todo list"
-        );
-        $("#loginButton").addClass("hidden");
-        $("#logoutButton").removeClass("hidden");
+        textbox.attr('placeholder', 'Please enter what you would like to add to your todo list');
+        $('#loginButton').addClass('hidden');
+        $('#logoutButton').removeClass('hidden');
+
+
       }
     },
-    error: function (error) {
+    error: function(error) {
       console.error("Error:", error);
     },
   });
@@ -222,15 +223,15 @@ $(document).ready(() => {
     method: "GET",
     dataType: "json",
   })
-    .done(function (response) {
+    .done(function(response) {
       console.log(response);
       populateTable(response);
     })
-    .fail(function (error) {
+    .fail(function(error) {
       console.log("Error:", error);
     });
 
-  $("#item-form").submit(function (event) {
+  $("#item-form").submit(function(event) {
     event.preventDefault();
 
     const $form = $(this);
@@ -241,7 +242,7 @@ $(document).ready(() => {
     $(".container").slideDown();
   });
 
-  $("#userInteraction").submit(function (event) {
+  $("#userInteraction").submit(function(event) {
     event.preventDefault();
 
     const $form = $(this);
@@ -258,7 +259,7 @@ $(document).ready(() => {
 
       console.log("form repose: ", response);
 
-      $(".container").slideUp(function () {
+      $(".container").slideUp(function() {
         const selector = document.getElementById("flex-outer");
         if (selector) {
           selector.remove();
@@ -275,27 +276,27 @@ $(document).ready(() => {
           method: "GET",
           dataType: "json",
         })
-          .done(function (response) {
+          .done(function(response) {
             console.log("response ", response);
             $("tbody tr").remove();
 
             populateTable(response);
           })
-          .fail(function (error) {
+          .fail(function(error) {
             console.log("Error:", error);
           });
       });
     });
   });
 
-  $("#registrationForm").submit(function (event) {
+  $("#registrationForm").submit(function(event) {
     event.preventDefault();
     showRegistrationSuccessMessage();
   });
 
   $("#logoutButton").on("click", logout);
 
-  $("#loginForm").submit(function (event) {
+  $("#loginForm").submit(function(event) {
     event.preventDefault();
 
     const $form = $(this);
